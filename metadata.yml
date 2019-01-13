@@ -1,13 +1,14 @@
 ---
-title: "Book"
+title: "A Song of Stone"
 author: "Ben Wilson"
 website: "https://merovex.com"
-ximprint: "images/logo.png"
+imprint: "images/logo.png"
 # Other titles
 other-titles:
   - Bellicose
   - Scintilla
 # Copyright Information
+firstprint: [10,1,1970]
 copyright: Copyright © 2019 Ben Wilson
 disclaimer: >
   This is a work of fiction. Names, characters, places and incidents are either
@@ -25,15 +26,15 @@ producers:
   - "Cover Design: Donna Murillo"
   - "Line Editor: Lenny"
   - "Copy Editor: Candice"
-
+links-as-notes: true
 #
 # Book formatting
 #
 fontsize: 11pt
-xfirstprint: 1970-10-01
+linestretch: 1.1
 fontfamily: "merriweather"
-geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.8in,bottom=0.625in,twoside
-chapter_style: "chappell"
+geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside
+# chapter_style: "chappell"
 
   # mainfont: Palatino
   # sansfont: Tahoma

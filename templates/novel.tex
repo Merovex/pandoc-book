@@ -7,6 +7,10 @@ $endif$$if(dir)$$if(latex-dir-rtl)$
 $endif$$endif$%
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$if(beamer)$ignorenonframetext,$if(handout)$handout,$endif$$if(aspectratio)$aspectratio=$aspectratio$,$endif$$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage[all]{nowidow}
+
 $if(beamer)$
 $if(background-image)$
 \usebackgroundtemplate{%
@@ -14,7 +18,7 @@ $if(background-image)$
 }
 $endif$
 \usepackage{pgfpages}
-\usepackage{graphicx}
+
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
@@ -22,8 +26,7 @@ $endif$
 $for(beameroption)$
 \setbeameroption{$beameroption$}
 $endfor$
-% Prevent slide breaks in the middle of a paragraph:
-\widowpenalties 1 10000
+
 \raggedbottom
 $if(section-titles)$
 \setbeamertemplate{part page}{
@@ -308,38 +311,35 @@ $endif$
 \newcommand{\currpage}{\footnotesize\thepage} % use in headers
 \fancyhead{} % clear header fields, required
 \fancyfoot{} % clear footer fields, required
-\fancyhead[RO,LE]{\currpage} % Odd page, Right side; Even page, left side
-\newcommand{\lo}{\footnotesize{}The Tenure Trap}
-\fancyhead[LO]{\lo} % Odd page, Left side
-\newcommand{\re}{\footnotesize{}Neal R. Wagner}
-\fancyhead[RE]{\footnotesize\re} % Even Page, Right side
+\fancyfoot[C]{\currpage}
+
+\newcommand{\headerfont}{ \fontsize{8}{11}\selectfont }
+\newcommand{\copyrightfont}{ \fontsize{10}{11}\selectfont }
+% \newcommand{\lo}{\MakeUppercase{$title$}} % Odd Page.
+% \newcommand{\re}{\MakeUppercase{$author$}} % Even Page.
+\fancyhead[CO]{ \headerfont \MakeUppercase{$title$} } % Even Page, Right side
+\fancyhead[CE]{ \headerfont \MakeUppercase{$author$} } % Even Page, Right side
 \renewcommand\headrulewidth{0pt} % for no rule line under header
 
-\newcommand{\chapstart}[3]{\newpage % at start of chapter
-  \thispagestyle{empty} % no headers or footers
-  \begin{flushright} % align to right side
-    \vspace*{1in}
-    {\Largebold Chapter #1} % #1 means use first argument
-    \vspace{0.5in}
-  \end{flushright}
-  \noindent
-  {\bf{}[#2, #3 pt, \baselinestretch{} stretch]}
-  \newline\noindent
-}
+\titleformat{\chapter}[display]
+  {\bfseries\Large}
+  {\filright\MakeUppercase{\chaptertitlename} \Huge\thechapter}
+  {1ex}
+  {\titlerule\vspace{1ex}\filleft}
+  [\vspace{1ex}\titlerule]
 
-% fonts
 \newcommand{\Hugebolditalic}{\fontfamily{phv}\fontseries{b}\fontshape{it}%
 \fontsize{40}{45pt}\selectfont} % Book title
 \newcommand{\Largebold}{\fontfamily{phv}\fontseries{b}\fontshape{n}%
 \fontsize{23}{26pt}\selectfont} % for chap head and for author name
-\newcommand{\mytimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
-\fontsize{11.6}{13pt}\selectfont} % in chapter 1
-\newcommand{\smalltimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
-\fontsize{10.6}{13pt}\selectfont} % in chapter 2
-\newcommand{\ncsbk}{\fontfamily{pnc}\fontseries{m}\fontshape{n}%
-\fontsize{11}{13pt}\selectfont} % in chapter 3
-\newcommand{\pal}{\fontfamily{ppl}\fontseries{m}\fontshape{n}%
-  \fontsize{11}{13pt}\selectfont} % in chapter 4
+% \newcommand{\mytimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
+% \fontsize{11.6}{13pt}\selectfont} % in chapter 1
+% \newcommand{\smalltimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
+% \fontsize{10.6}{13pt}\selectfont} % in chapter 2
+% \newcommand{\ncsbk}{\fontfamily{pnc}\fontseries{m}\fontshape{n}%
+% \fontsize{11}{13pt}\selectfont} % in chapter 3
+% \newcommand{\pal}{\fontfamily{ppl}\fontseries{m}\fontshape{n}%
+%   \fontsize{11}{13pt}\selectfont} % in chapter 4
 
 $if(lang)$
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
@@ -436,7 +436,7 @@ $endif$
     \begin{center}
       \vspace*{2in}
 
-      \Huge\textbf{\textsf{$title$}}
+      \Hugebolditalic{\textsf{$title$}}
 
       \vspace*{0.75in}
 
@@ -480,6 +480,7 @@ $endif$
       \vspace*{\fill}
       $if(imprint)$
       \includegraphics[width=2in]{$imprint$}\\[0cm]
+      \vspace*{0.25in}
       $endif$
     \end{center}
     \clearpage
@@ -511,6 +512,7 @@ $endif$
     \newline
 
     $if(firstprint)$
+      \newdate{firstprint}$for(firstprint)${$firstprint$}$endfor$
       \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
       \newline
     $endif$
@@ -563,7 +565,7 @@ $endif$
 % \mainmatter TODO: Fix Mainmatter
   % \pagestyle{ebook}
 \newpage
-
+\pagestyle{fancy}
 $body$
 
 $if(natbib)$

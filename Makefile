@@ -7,7 +7,7 @@ TOC = --toc --toc-depth=2
 IMAGES_FOLDER = images
 IMAGES = $(IMAGES_FOLDER)/*
 COVER_IMAGE = $(IMAGES_FOLDER)/cover.png
-LATEX_CLASS = article
+LATEX_CLASS = book
 # GEOMETRY =
 MATH_FORMULAS = --webtex
 CSS_FILE = templates/style.css
@@ -42,4 +42,3 @@ $(BUILD)/html/$(OUTPUT_FILENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(CSS
 $(BUILD)/pdf/$(OUTPUT_FILENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(CSS_FILE) $(IMAGES)
 	mkdir -p $(BUILD)/pdf
 	pandoc --template templates/novel.tex $(ARGS) -V documentclass=$(LATEX_CLASS) -o $@ $(CHAPTERS)
-	pandoc --template templates/novel.tex $(ARGS) -V documentclass=$(LATEX_CLASS) -o book.tex $(CHAPTERS)
