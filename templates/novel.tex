@@ -6,6 +6,7 @@ $endif$$if(dir)$$if(latex-dir-rtl)$
 \PassOptionsToPackage{RTLdocument}{bidi}
 $endif$$endif$%
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$if(beamer)$ignorenonframetext,$if(handout)$handout,$endif$$if(aspectratio)$aspectratio=$aspectratio$,$endif$$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
 $if(beamer)$
 $if(background-image)$
 \usebackgroundtemplate{%
@@ -13,6 +14,7 @@ $if(background-image)$
 }
 $endif$
 \usepackage{pgfpages}
+\usepackage{graphicx}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
@@ -68,6 +70,18 @@ $if(linestretch)$
 \usepackage{setspace}
 \setstretch{$linestretch$}
 $endif$
+
+% Dates
+%-------
+\usepackage{datetime}
+\newdateformat{yearonly}{\THEYEAR}
+\newdateformat{usmonthyear}{\monthname[\THEMONTH], \THEYEAR}
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
+
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -278,9 +292,55 @@ $endif$
 \def\fps@figure{htbp}
 \makeatother
 
-$for(header-includes)$
-$header-includes$
-$endfor$
+% $for(header-includes)$
+% $header-includes$
+% $endfor$
+% HEADER DESIGN
+\usepackage{fancyhdr} % headers
+\pagestyle{fancy} % style for headers
+\usepackage{pifont} % for the copyright symbol
+\headheight 0.25in % height of header
+\headsep 0.25in % dist between top of text and bottom of header
+\parskip 0in
+\parindent 0.25in % = 6.35mm
+\newcommand{\str}{\rule{0pt}{16pt}} % strut used in toc
+%%% header stuff
+\newcommand{\currpage}{\footnotesize\thepage} % use in headers
+\fancyhead{} % clear header fields, required
+\fancyfoot{} % clear footer fields, required
+\fancyhead[RO,LE]{\currpage} % Odd page, Right side; Even page, left side
+\newcommand{\lo}{\footnotesize{}The Tenure Trap}
+\fancyhead[LO]{\lo} % Odd page, Left side
+\newcommand{\re}{\footnotesize{}Neal R. Wagner}
+\fancyhead[RE]{\footnotesize\re} % Even Page, Right side
+\renewcommand\headrulewidth{0pt} % for no rule line under header
+
+\newcommand{\chapstart}[3]{\newpage % at start of chapter
+  \thispagestyle{empty} % no headers or footers
+  \begin{flushright} % align to right side
+    \vspace*{1in}
+    {\Largebold Chapter #1} % #1 means use first argument
+    \vspace{0.5in}
+  \end{flushright}
+  \noindent
+  {\bf{}[#2, #3 pt, \baselinestretch{} stretch]}
+  \newline\noindent
+}
+
+% fonts
+\newcommand{\Hugebolditalic}{\fontfamily{phv}\fontseries{b}\fontshape{it}%
+\fontsize{40}{45pt}\selectfont} % Book title
+\newcommand{\Largebold}{\fontfamily{phv}\fontseries{b}\fontshape{n}%
+\fontsize{23}{26pt}\selectfont} % for chap head and for author name
+\newcommand{\mytimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
+\fontsize{11.6}{13pt}\selectfont} % in chapter 1
+\newcommand{\smalltimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
+\fontsize{10.6}{13pt}\selectfont} % in chapter 2
+\newcommand{\ncsbk}{\fontfamily{pnc}\fontseries{m}\fontshape{n}%
+\fontsize{11}{13pt}\selectfont} % in chapter 3
+\newcommand{\pal}{\fontfamily{ppl}\fontseries{m}\fontshape{n}%
+  \fontsize{11}{13pt}\selectfont} % in chapter 4
+
 $if(lang)$
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
@@ -319,37 +379,46 @@ $for(bibliography)$
 \addbibresource{$bibliography$}
 $endfor$
 $endif$
-
-$if(title)$
-\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
-$endif$
-$if(subtitle)$
-\providecommand{\subtitle}[1]{}
-\subtitle{$subtitle$}
-$endif$
-$if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
-$if(institute)$
-\providecommand{\institute}[1]{}
-\institute{$for(institute)$$institute$$sep$ \and $endfor$}
-$endif$
-\date{$date$}
-$if(beamer)$
-$if(titlegraphic)$
-\titlegraphic{\includegraphics{$titlegraphic$}}
-$endif$
-$if(logo)$
-\logo{\includegraphics{$logo$}}
-$endif$
-$endif$
+% Frontmatter
+%-------------
+% \frontmatter TODO: Fix Frontmatter
+%%%%% Start, title page, copyright %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Original Pandoc template
+% $if(title)$
+% \title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+% $endif$
+%
+% $if(subtitle)$
+% \providecommand{\subtitle}[1]{}
+% \subtitle{$subtitle$}
+% $endif$
+%
+% $if(author)$
+% \author{$for(author)$$author$$sep$ \and $endfor$}
+% $endif$
+%
+% $if(institute)$
+% \providecommand{\institute}[1]{}
+% \institute{$for(institute)$$institute$$sep$ \and $endfor$}
+% $endif$
+%
+% \date{$date$}
+%
+% $if(beamer)$
+% $if(titlegraphic)$
+% \titlegraphic{\includegraphics{$titlegraphic$}}
+% $endif$
+% $if(logo)$
+% \logo{\includegraphics{$logo$}}
+% $endif$
+% $endif$
 
 \begin{document}
 $if(title)$
 $if(beamer)$
 \frame{\titlepage}
 $else$
-\maketitle
+% \maketitle
 $endif$
 $if(abstract)$
 \begin{abstract}
@@ -358,10 +427,110 @@ $abstract$
 $endif$
 $endif$
 
-$for(include-before)$
-$include-before$
+\sloppy % ignore problems with line overflow / underflow
+\setcounter{page}{1}
+\pagenumbering{roman}
+  % ------------------------------------------------
+  % r.1 - Half-Title - Recto
+    \pagestyle{empty}
+    \begin{center}
+      \vspace*{2in}
 
-$endfor$
+      \Huge\textbf{\textsf{$title$}}
+
+      \vspace*{0.75in}
+
+      \Large\textsf{$author$}
+
+      \vspace*{\fill}
+    \end{center}
+    \clearpage
+
+  % ------------------------------------------------
+  % r.2 - Series Title Page - Verso
+    \newpage
+    \emph{ }\newline
+    $if(other-titles)$
+    \begin{center}
+      \textbf{Also by $author$}
+
+      $for(other-titles)$
+      $other-titles$\newline
+      $endfor$
+    \end{center}
+    $endif$
+    \clearpage
+
+  % ------------------------------------------------
+  % r.3 Titlepage - Recto
+    \pagestyle{empty}
+    \begin{center}
+      \vspace*{\fill}
+
+      \Huge\textbf{\textsf{$title$}}
+
+      \vspace*{0.25in}
+      \line(1,0){150}
+      \vspace*{0.25in}
+
+      \Large\textsf{$author$}
+
+      \vspace*{\fill}
+
+      \vspace*{\fill}
+      $if(imprint)$
+      \includegraphics[width=2in]{$imprint$}\\[0cm]
+      $endif$
+    \end{center}
+    \clearpage
+
+  % ------------------------------------------------
+  % r.4 Copyright Page
+  \pagestyle{empty}
+    \vspace*{\fill}
+
+    \par\noindent\emph{$title$}\newline
+    \par\noindent\emph{$copyright$}\newline
+
+    $if(rights)$\par\noindent $rights$\newline$endif$
+
+    $if(disclaimer)$\par\noindent $disclaimer$\newline$endif$
+
+    % Producer Acknowledgements
+    \par\noindent Interior Design: Merovex Press % Per license terms for use of template.
+    $for(producers)$
+    \par\noindent $producers$
+    $endfor$\newline
+
+    \par\noindent $author$
+    $if(website)$
+    \par\noindent Visit us at \url{$website$}\newline
+    $endif$
+
+    \par\noindent Printed in the United States of America
+    \newline
+
+    $if(firstprint)$
+      \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
+      \newline
+    $endif$
+
+    $for(isbn)$
+    \par\noindent ISBN $isbn$
+    $endfor$\newline
+
+    \par\noindent $identifier$
+    \vspace*{\fill}
+  \clearpage
+
+  % ------------------------------------------------
+  % r.5 - Dedication
+  $if(dedication)$
+    \pagestyle{empty}
+    $dedication$
+    \newpage
+  $endif$
+
 $if(toc)$
 $if(toc-title)$
 \renewcommand*\contentsname{$toc-title$}
@@ -389,6 +558,12 @@ $endif$
 $if(lof)$
 \listoffigures
 $endif$
+% \setcounter{page}{1}
+\pagenumbering{arabic}
+% \mainmatter TODO: Fix Mainmatter
+  % \pagestyle{ebook}
+\newpage
+
 $body$
 
 $if(natbib)$

@@ -1,0 +1,41 @@
+---
+title: "Book"
+author: "Ben Wilson"
+website: "https://merovex.com"
+ximprint: "images/logo.png"
+# Other titles
+other-titles:
+  - Bellicose
+  - Scintilla
+# Copyright Information
+copyright: Copyright © 2019 Ben Wilson
+disclaimer: >
+  This is a work of fiction. Names, characters, places and incidents are either
+  the product of the author's imagination or are used fictitiously, and any resemblance to
+  actual persons, living or dead, business establishments, events or locales is entirely
+  coincidental.
+rights: >
+  No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.
+isbn:
+  - "9-78098-3952-107 paperback"
+  - "9-78098-3952-107 ebook"
+
+# Production Recognition
+producers:
+  - "Cover Design: Donna Murillo"
+  - "Line Editor: Lenny"
+  - "Copy Editor: Candice"
+
+#
+# Book formatting
+#
+fontsize: 11pt
+xfirstprint: 1970-10-01
+fontfamily: "merriweather"
+geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.8in,bottom=0.625in,twoside
+chapter_style: "chappell"
+
+  # mainfont: Palatino
+  # sansfont: Tahoma
+  # monofont: Courier
+---
