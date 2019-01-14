@@ -27,10 +27,10 @@ producers:
   - "Line Editor: Lenny"
   - "Copy Editor: Candice"
 links-as-notes: true
-#
+# ===============================================
 # Book formatting
 #
-fontsize: 11pt
+fontsize: 10pt
 linestretch: 1.1
 fontfamily: "merriweather"
 geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside
