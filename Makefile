@@ -41,4 +41,4 @@ $(BUILD)/html/$(OUTPUT_FILENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(CSS
 
 $(BUILD)/pdf/$(OUTPUT_FILENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(CSS_FILE) $(IMAGES)
 	mkdir -p $(BUILD)/pdf
-	pandoc --template templates/novel.tex --lua-filter templates/latex.lua $(ARGS) -V documentclass=$(LATEX_CLASS) -o $@ $(CHAPTERS)
+	pandoc --template templates/pdfborder.tex --lua-filter templates/latex.lua $(ARGS) -V documentclass=$(LATEX_CLASS) -o $@ $(CHAPTERS)
