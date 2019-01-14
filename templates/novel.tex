@@ -9,9 +9,8 @@ $endif$$endif$%
 
 \usepackage{titlesec}
 \usepackage{graphicx}
-\usepackage{lipsum}
+% \usepackage{lipsum}
 \usepackage[all]{nowidow}
-
 
 $if(beamer)$
 $if(background-image)$
@@ -315,12 +314,8 @@ $endif$
 \fancyfoot{} % clear footer fields, required
 \fancyfoot[C]{\currpage}
 
-\newcommand{\headerfont}{ \fontsize{8}{11}\selectfont }
-\newcommand{\copyrightfont}{ \fontsize{10}{11}\selectfont }
-% \newcommand{\lo}{\MakeUppercase{$title$}} % Odd Page.
-% \newcommand{\re}{\MakeUppercase{$author$}} % Even Page.
-\fancyhead[CO]{ \headerfont \MakeUppercase{$title$} } % Even Page, Right side
-\fancyhead[CE]{ \headerfont \MakeUppercase{$author$} } % Even Page, Right side
+\fancyhead[CO]{ \footnotesize\MakeUppercase{$title$}  } % Odd Page, Right side
+\fancyhead[CE]{ \footnotesize\MakeUppercase{$author$} } % Even Page, Right side
 \renewcommand\headrulewidth{0pt} % for no rule line under header
 
 \titleformat{\chapter}[display]
@@ -330,62 +325,48 @@ $endif$
   {\titlerule\vspace{1ex}\filleft}
   [\vspace{1ex}\titlerule]
 
-\newcommand{\Hugebolditalic}{\fontsize{40}{45pt}\selectfont} % Book title
-\newcommand{\Largebold}{\fontfamily{phv}\fontseries{b}\fontshape{n}%
-\fontsize{23}{26pt}\selectfont} % for chap head and for author name
-% \newcommand{\mytimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
-% \fontsize{11.6}{13pt}\selectfont} % in chapter 1
-% \newcommand{\smalltimes}{\fontfamily{ptm}\fontseries{m}\fontshape{n}%
-% \fontsize{10.6}{13pt}\selectfont} % in chapter 2
-% \newcommand{\ncsbk}{\fontfamily{pnc}\fontseries{m}\fontshape{n}%
-% \fontsize{11}{13pt}\selectfont} % in chapter 3
-% \newcommand{\pal}{\fontfamily{ppl}\fontseries{m}\fontshape{n}%
-%   \fontsize{11}{13pt}\selectfont} % in chapter 4
-
 $if(lang)$
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
-$if(babel-newcommands)$
-  $babel-newcommands$
-$endif$
-\else
-  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
-$for(polyglossia-otherlangs)$
-  \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
-$endfor$
-\fi
+  \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \usepackage[shorthands=off,$for(babel-otherlangs)$$babel-otherlangs$,$endfor$main=$babel-lang$]{babel}
+  $if(babel-newcommands)$
+    $babel-newcommands$
+  $endif$
+  \else
+    % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+    \usepackage{polyglossia}
+    \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
+  $for(polyglossia-otherlangs)$
+    \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
+  $endfor$
+  \fi
 $endif$
 $if(dir)$
-\ifxetex
-  % load bidi as late as possible as it modifies e.g. graphicx
-  \usepackage{bidi}
-\fi
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \TeXXeTstate=1
-  \newcommand{\RL}[1]{\beginR #1\endR}
-  \newcommand{\LR}[1]{\beginL #1\endL}
-  \newenvironment{RTL}{\beginR}{\endR}
-  \newenvironment{LTR}{\beginL}{\endL}
-\fi
+  \ifxetex
+    % load bidi as late as possible as it modifies e.g. graphicx
+    \usepackage{bidi}
+  \fi
+  \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \TeXXeTstate=1
+    \newcommand{\RL}[1]{\beginR #1\endR}
+    \newcommand{\LR}[1]{\beginL #1\endL}
+    \newenvironment{RTL}{\beginR}{\endR}
+    \newenvironment{LTR}{\beginL}{\endL}
+  \fi
 $endif$
 $if(natbib)$
-\usepackage[$natbiboptions$]{natbib}
-\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+  \usepackage[$natbiboptions$]{natbib}
+  \bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
 $endif$
 $if(biblatex)$
-\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
-$for(bibliography)$
-\addbibresource{$bibliography$}
-$endfor$
+  \usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+  $for(bibliography)$
+    \addbibresource{$bibliography$}
+  $endfor$
 $endif$
 
-% PFBREAK start
-% \let\oldrule\rule
-% \renewcommand{\rule}[2]{\pfbreak}
+% ===============================================
+% Bringing PlainFancyBreak from Memoir class.
 \makeatletter
-
 \newcommand{\plainfancybreak}{\@ifstar{\@spfbreak}{\@pfbreak}}
 \newcommand{\@pfbreak}[3]{\par
   \@tempdimc\pagegoal \advance\@tempdimc-\pagetotal
@@ -465,83 +446,48 @@ $endif$
   \@afterindenttrue
   \@afterheading
 }
-% \let\old@rule\@rule
-% \def\@rule[#1]#2#3{\old@rule[#1]{#2}{#3}}
-% \def\@rule[#1]#2#3{\pfbreak[#1]{#2}{#3}}
 \makeatother
-\let\OldRule\rule
-\renewcommand{\rule}[2]{\OldRule[0pt]{0pt}{#2}\pfbreak{}}
-% \renewcommand{\rule}[2]{\pfbreak{#2}}
-% PFBREAD End
-
-% Frontmatter
-%-------------
-% \frontmatter TODO: Fix Frontmatter
-%%%%% Start, title page, copyright %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Original Pandoc template
-% $if(title)$
-% \title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
-% $endif$
-%
-% $if(subtitle)$
-% \providecommand{\subtitle}[1]{}
-% \subtitle{$subtitle$}
-% $endif$
-%
-% $if(author)$
-% \author{$for(author)$$author$$sep$ \and $endfor$}
-% $endif$
-%
-% $if(institute)$
-% \providecommand{\institute}[1]{}
-% \institute{$for(institute)$$institute$$sep$ \and $endfor$}
-% $endif$
-%
-% \date{$date$}
-%
-% $if(beamer)$
-% $if(titlegraphic)$
-% \titlegraphic{\includegraphics{$titlegraphic$}}
-% $endif$
-% $if(logo)$
-% \logo{\includegraphics{$logo$}}
-% $endif$
-% $endif$
+% /PlainFancyBreak
 
 \begin{document}
-$if(title)$
-$if(beamer)$
-\frame{\titlepage}
-$else$
-% \maketitle
-$endif$
-$if(abstract)$
-\begin{abstract}
-$abstract$
-\end{abstract}
-$endif$
-$endif$
+  \sloppy % ignore problems with line overflow / underflow
+  \setcounter{page}{1}
+% ===============================================
+% Old Beamer frontmatter
+% $if(title)$
+%   $if(beamer)$
+%     \frame{\titlepage}
+%     $else$
+%     % \maketitle
+%   $endif$
+%   $if(abstract)$
+%     \begin{abstract}
+%   $abstract$
+%     \end{abstract}
+%   $endif$
+% $endif$
 
-\sloppy % ignore problems with line overflow / underflow
-\setcounter{page}{1}
-\pagenumbering{roman}
+% ===============================================
+% Frontmatter
+  \pagenumbering{roman}
+  \pagestyle{empty}
   % ------------------------------------------------
   % r.1 - Half-Title - Recto
-    \pagestyle{empty}
-    \begin{center}
-      \vspace*{\fill}
+  \begin{center}
+    \vspace*{\fill}
 
-      \LARGE\textbf{\textsf{$title$}}
+    \LARGE\textbf{\textsf{$title$}}
 
-      \vspace*{\fill}
-    \end{center}
-    \clearpage
+    \vspace*{\fill}
+    \vspace*{\fill}
+  \end{center}
+  \clearpage
 
   % ------------------------------------------------
   % r.2 - Series Title Page - Verso
-    \newpage
-    \emph{ }\newline
-    $if(other-titles)$
+  \newpage
+  \emph{ }\newline
+  $if(other-titles)$
     \begin{center}
       \textbf{Also by $author$}
 
@@ -549,160 +495,157 @@ $endif$
       $other-titles$\newline
       $endfor$
     \end{center}
-    $endif$
-    \clearpage
-
-  % ------------------------------------------------
-  % r.3 Titlepage - Recto
-    \pagestyle{empty}
-    \begin{center}
-      \vspace*{\fill}
-
-      \Huge\textbf{\textsf{$title$}}
-      $if(subtitle)$
-
-      \vspace*{0.125in}\Large\textbf{\textsf{$subtitle$}}$endif$
-
-      \vspace*{0.25in}
-      \line(1,0){150}
-      \vspace*{0.25in}
-
-      \Large\textsf{$author$}
-
-      \vspace*{\fill}
-
-      \vspace*{\fill}
-      $if(imprint)$
-      \includegraphics[width=1in]{$imprint$}\\[0cm]
-      \vspace*{0.25in}
-      $endif$
-    \end{center}
-    \clearpage
-
-  % ------------------------------------------------
-  % r.4 Copyright Page
-  \pagestyle{empty}
-    \vspace*{\fill}
-
-    \par\noindent\emph{$title$}\newline
-    \par\noindent\emph{$copyright$}\newline
-
-    \footnotesize
-    $if(rights)$\par\noindent $rights$\newline$endif$
-
-    $if(disclaimer)$\par\noindent $disclaimer$\newline$endif$
-
-    % Producer Acknowledgements
-    \par\noindent Interior Design: Merovex Press % Per license terms for use of template.
-    $for(producers)$
-    \par\noindent $producers$
-    $endfor$\newline
-
-    \par\noindent\normalsize $author$
-    $if(website)$
-    \par\noindent Visit us at \url{$website$}\newline
-    $endif$
-
-    \par\noindent Printed in the United States of America
-    \newline
-
-    $if(firstprint)$
-      \newdate{firstprint}$for(firstprint)${$firstprint$}$endfor$
-      \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
-      \newline
-    $endif$
-
-    $for(isbn)$
-    \par\noindent ISBN $isbn$
-    $endfor$\newline
-
-    \par\noindent $identifier$
-    \vspace*{\fill}
+  $endif$
   \clearpage
 
   % ------------------------------------------------
+  % r.3 Titlepage - Recto
+  \begin{center}
+    \vspace*{\fill}
+
+    \Huge\textbf{\textsf{$title$}}
+    $if(subtitle)$
+
+    \vspace*{0.125in}\Large\textbf{\textsf{$subtitle$}}$endif$
+
+    \vspace*{0.25in}
+    \line(1,0){2in}
+    \vspace*{0.25in}
+
+    \Large\textsf{$author$}
+
+    \vspace*{\fill}
+    \vspace*{\fill}
+    $if(imprint)$
+    \includegraphics[width=1in]{$imprint$}\\[0cm]
+    \vspace*{0.25in}
+    $endif$
+  \end{center}
+  \clearpage
+
+  % ------------------------------------------------
+  % r.4 Copyright Page
+  \vspace*{\fill}
+
+  \par\noindent\emph{$title$}\newline
+  \par\noindent\emph{$copyright$}\newline
+
+  \footnotesize
+  $if(rights)$\par\noindent $rights$\newline$endif$
+
+  $if(disclaimer)$\par\noindent $disclaimer$\newline$endif$
+
+  % Producer Acknowledgements
+  \par\noindent Interior Design: Merovex Press % Per license terms for use of template.
+  $for(producers)$
+    \par\noindent $producers$
+  $endfor$\newline
+
+  \par\noindent $author$
+  $if(website)$
+    \par\noindent Visit us at \url{$website$}\newline
+  $endif$
+
+  \par\noindent Printed in the United States of America
+  \newline
+
+  $if(firstprint)$
+    \newdate{firstprint}$for(firstprint)${$firstprint$}$endfor$
+    \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
+    \newline
+  $endif$
+
+  $for(isbn)$
+    \par\noindent ISBN $isbn$
+  $endfor$\newline
+
+  \par\noindent $identifier$
+  \vspace*{\fill}
+  \clearpage\normalsize
+
+  % -----------------------------------------------
   % r.5 - Dedication
   $if(dedication)$
-    \pagestyle{empty}
     $dedication$
     \newpage
   $endif$
 
-$if(toc)$
-$if(toc-title)$
-\renewcommand*\contentsname{$toc-title$}
-$endif$
-$if(beamer)$
-\begin{frame}
-$if(toc-title)$
-\frametitle{$toc-title$}
-$endif$
-\tableofcontents[hideallsubsections]
-\end{frame}
-$else$
-{
-$if(colorlinks)$
-\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$}
-$endif$
-\setcounter{tocdepth}{$toc-depth$}
-\tableofcontents
-}
-$endif$
-$endif$
-$if(lot)$
-\listoftables
-$endif$
-$if(lof)$
-\listoffigures
-$endif$
-% \setcounter{page}{1}
-\pagenumbering{arabic}
-% \mainmatter TODO: Fix Mainmatter
-  % \pagestyle{ebook}
-\newpage
-\pagestyle{fancy}
+  % -----------------------------------------------
+  % Table of Contents
+  $if(toc)$
+    $if(toc-title)$
+      \renewcommand*\contentsname{$toc-title$}
+    $endif$
+    $if(beamer)$
+      \begin{frame}
+        $if(toc-title)$
+        \frametitle{$toc-title$}
+        $endif$
+        \tableofcontents[hideallsubsections]
+      \end{frame}
+    $else$
+    {
+      $if(colorlinks)$
+        \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$}
+      $endif$
+      \setcounter{tocdepth}{$toc-depth$}
+      \tableofcontents
+    }
+    $endif$
+  $endif$
+
+  % -----------------------------------------------
+  % List of Tables
+  $if(lot)$
+    \listoftables
+  $endif$
+
+  % -----------------------------------------------
+  % List of Figures
+  $if(lof)$
+    \listoffigures
+  $endif$
+
+\newpage % End Frontmatter
+
+% ===============================================
+% Mainmatter
+\pagenumbering{arabic}\pagestyle{fancy}
 $body$
-\chapter{Testing}
-At animal maluisset nec, impedit volumus eu pro. Qui te periculis forensibus. Eruditi offendit reprimique ei cum. Causae vivendum eloquentiam at mea, vel ludus scriptorem ei, sea iriure principes theophrastus ne. Illud velit ut sed, ad his vero omnis, cu errem argumentum per. Populo tritani ad duo.
-At animal maluisset nec, impedit volumus eu pro. Qui te periculis forensibus. Eruditi offendit reprimique ei cum. Causae vivendum eloquentiam at mea, vel ludus scriptorem ei, sea iriure principes theophrastus ne. Illud velit ut sed, ad his vero omnis, cu errem argumentum per. Populo tritani ad duo.
-At animal maluisset nec, impedit volumus eu pro. Qui te periculis forensibus. Eruditi offendit reprimique ei cum. Causae vivendum eloquentiam at mea, vel ludus scriptorem ei, sea iriure principes theophrastus ne. Illud velit ut sed, ad his vero omnis, cu errem argumentum per. Populo tritani ad duo.
-At animal maluisset nec, impedit volumus eu pro. Qui te periculis forensibus. Eruditi offendit reprimique ei cum. Causae vivendum eloquentiam at mea, vel ludus scriptorem ei, sea iriure principes theophrastus ne. Illud velit ut sed, ad his vero omnis, cu errem argumentum per. Populo tritani ad duo.
-At animal maluisset nec, impedit volumus eu pro. Qui te periculis forensibus. Eruditi offendit reprimique ei cum. Causae vivendum eloquentiam at mea, vel ludus scriptorem ei, sea iriure principes theophrastus ne. Illud velit ut sed, ad his vero omnis, cu errem argumentum per. Pop
-ulo tritani ad duo.
 
-\lipsum[3]
-
+% ===============================================
+% Backmatter
 $if(natbib)$
-$if(bibliography)$
-$if(biblio-title)$
-$if(book-class)$
-\renewcommand\bibname{$biblio-title$}
-$else$
-\renewcommand\refname{$biblio-title$}
-$endif$
-$endif$
-$if(beamer)$
-\begin{frame}[allowframebreaks]{$biblio-title$}
-\bibliographytrue
-$endif$
-\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
-$if(beamer)$
-\end{frame}
+  $if(bibliography)$
+    $if(biblio-title)$
+      $if(book-class)$
+        \renewcommand\bibname{$biblio-title$}
+      $else$
+        \renewcommand\refname{$biblio-title$}
+      $endif$
+    $endif$
+    $if(beamer)$
+      \begin{frame}[allowframebreaks]{$biblio-title$}
+      \bibliographytrue
+    $endif$
+    \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+    $if(beamer)$
+      \end{frame}
+    $endif$
+  $endif$
 $endif$
 
-$endif$
-$endif$
 $if(biblatex)$
-$if(beamer)$
-\begin{frame}[allowframebreaks]{$biblio-title$}
-\bibliographytrue
-\printbibliography[heading=none]
-\end{frame}
-$else$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+  $if(beamer)$
+    \begin{frame}[allowframebreaks]{$biblio-title$}
+      \bibliographytrue
+      \printbibliography[heading=none]
+    \end{frame}
+  $else$
+    \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+  $endif$
 $endif$
 
-$endif$
 $for(include-after)$
 $include-after$
 
