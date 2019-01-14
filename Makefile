@@ -8,7 +8,6 @@ IMAGES_FOLDER = images
 IMAGES = $(IMAGES_FOLDER)/*
 COVER_IMAGE = $(IMAGES_FOLDER)/cover.png
 LATEX_CLASS = book
-# GEOMETRY =
 MATH_FORMULAS = --webtex
 TEMPLATE_DIR = templates/
 CSS_FILE = style.css
@@ -32,7 +31,7 @@ pdf: $(BUILD)/pdf/$(OUTPUT_FILENAME).pdf
 $(BUILD)/epub/$(OUTPUT_FILENAME).epub: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES) \
 	$(COVER_IMAGE)
 	mkdir -p $(BUILD)/epub
-	pandoc $(ARGS) --epub-cover-image=$(COVER_IMAGE) -o $@ $(CHAPTERS)
+	pandoc $(ARGS) --template $(TEMPLATE_DIR)epub.html --epub-cover-image=$(COVER_IMAGE) -o $@ $(CHAPTERS)
 
 $(BUILD)/html/$(OUTPUT_FILENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
 	mkdir -p $(BUILD)/html
