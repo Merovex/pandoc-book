@@ -13,3 +13,15 @@ My earlier forays into plaintext to Novel were in LaTeX, then a [custom-modified
 * Pascal Wagler, [Eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template), for giving away that one can pull down the stock Pandoc LaTeX template and modify it.
 * BP, [Pandoc Google Group](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/pandoc-discuss/JVAKdezOoVg/RCY30ypTEQAJ), for helping me change the Horizontal Rule into a Plain Fancy Break.
 * [Memoir class](https://ctan.org/pkg/memoir?lang=en), for having code on Plain Fancy Break that I was able to copy over.
+
+baugust3@masonlive.gmu.edu,
+daily.j.g88@gmail.com,
+freddi.arce@gmail.com,
+pushpa.jayapal@gmail.com,
+e.eshupp@nodetus.com,
+nvinta@masonlive.gmu.edu,
+dausha@gmail.com,
+keith.wojciech@telos.com,
+siravecclasse@gmail.com,
+miketatum@yahoo.com,
+bruhalm@yahoo.com
