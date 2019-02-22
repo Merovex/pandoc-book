@@ -1,40 +1,18 @@
 ![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
 
 # Pandoc Novel
+> Simple toolchain for publishing books in PDF, epub, mobi, using Markdown & Pandoc
 
 [![Last Commit](https://img.shields.io/github/last-commit/merovex/pandoc-novel.svg)](https://github.com/merovex/pandoc-novel/branches)
 
-## Use Cases
-
-## Acknowledgements
-
-My earlier forays into plaintext to Novel were in LaTeX, then a [custom-modified Ruby approach](https://github.com/Merovex/verku). This toolchain is a pivot to a simpler one and owes appreciation to:
-
-* Scott Selisker, [A Plain Text Workflow for Academic Writing with Atom](http://u.arizona.edu/~selisker/post/workflow/) & KDheepak, [Writing Technical Papers with Markdown](https://blog.kdheepak.com/writing-papers-with-markdown.html). Both encouraged me to re-build a toolchain.
-* Dennis Tenen and Grant Wythoff, [Sustainable Authorship in Plain Text using Pandoc and Markdown](https://programminghistorian.org/en/lessons/sustainable-authorship-in-plain-text-using-pandoc-and-markdown), for encouraging me to focus on Pandoc for the toolchain.
-* Pascal Wagler, [Eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template), for giving away that one can pull down the stock Pandoc LaTeX template and modify it.
-* BP, [Pandoc Google Group](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/pandoc-discuss/JVAKdezOoVg/RCY30ypTEQAJ), for helping me change the Horizontal Rule into a Plain Fancy Break.
-* [Memoir class](https://ctan.org/pkg/memoir?lang=en), for having code on Plain Fancy Break that I was able to copy over.
-
-baugust3@masonlive.gmu.edu,
-daily.j.g88@gmail.com,
-freddi.arce@gmail.com,
-pushpa.jayapal@gmail.com,
-e.eshupp@nodetus.com,
-nvinta@masonlive.gmu.edu,
-dausha@gmail.com,
-keith.wojciech@telos.com,
-siravecclasse@gmail.com,
-miketatum@yahoo.com,
-bruhalm@yahoo.com
-
-
-
-# Name of the project
-> Additional information or tagline
-
 A brief description of your project, what it is used for and how does life get
 awesome when someone starts to use it.
+
+## Use Cases
+
+* Author of fiction
+* Author of non-fiction
+
 
 ## Installing / Getting started
 
@@ -154,11 +132,28 @@ links to humans using your project. You can include links like:
   - Your other project: https://github.com/your/other-project/
   - Someone else's project: https://github.com/someones/awesome-project/
 
+## Acknowledgements
+
+My earlier forays into plaintext to Novel were in LaTeX, then a [custom-modified Ruby approach](https://github.com/Merovex/verku). This toolchain is a pivot to a simpler toolchain and its inspiration owes appreciation to:
+
+* Scott Selisker, [A Plain Text Workflow for Academic Writing with Atom](http://u.arizona.edu/~selisker/post/workflow/) & KDheepak, [Writing Technical Papers with Markdown](https://blog.kdheepak.com/writing-papers-with-markdown.html). Both encouraged me to re-build a toolchain.
+* Dennis Tenen and Grant Wythoff, [Sustainable Authorship in Plain Text using Pandoc and Markdown](https://programminghistorian.org/en/lessons/sustainable-authorship-in-plain-text-using-pandoc-and-markdown), for encouraging me to focus on Pandoc for the toolchain.
+* Pascal Wagler, [Eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template), for giving away that one can pull down the stock Pandoc LaTeX template and modify it.
+* BP, [Pandoc Google Group](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/pandoc-discuss/JVAKdezOoVg/RCY30ypTEQAJ), for helping me change the Horizontal Rule into a Plain Fancy Break.
+* [Memoir class](https://ctan.org/pkg/memoir?lang=en), for having code on Plain Fancy Break that I was able to copy over.
+
+baugust3@masonlive.gmu.edu,
+daily.j.g88@gmail.com,
+freddi.arce@gmail.com,
+pushpa.jayapal@gmail.com,
+e.eshupp@nodetus.com,
+nvinta@masonlive.gmu.edu,
+dausha@gmail.com,
+keith.wojciech@telos.com,
+siravecclasse@gmail.com,
+miketatum@yahoo.com,
+bruhalm@yahoo.com
 
 ## Licensing
 
-One really important part: Give your project a proper license. Here you should
-state what the license is and how to find the text version of the license.
-Something like:
-
-"The code in this project is licensed under MIT license."
+The code in this project is licensed under a BSD-3 [license](/LICENSE).
