@@ -1,4 +1,4 @@
-![Logo of the project](/images/logo.png?s=100)
+![Logo of the project](/images/logo-1.png)
 
 # Pandoc Novel
 > Simple toolchain for publishing books in PDF, epub, mobi, using Markdown & Pandoc
