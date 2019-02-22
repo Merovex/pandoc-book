@@ -1,4 +1,4 @@
-![Logo of the project](/images/logo-1.png)
+![Logo of the project](/images/logo-1.png)<!-- .element height="50%" width="50%" -->
 
 # Pandoc Novel
 > Simple toolchain for publishing books in PDF, epub, mobi, using Markdown & Pandoc
