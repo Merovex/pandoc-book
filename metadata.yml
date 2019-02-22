@@ -29,8 +29,9 @@ producers:
   - "Line Editor: Lenny"
   - "Copy Editor: Candice"
 links-as-notes: true
+
 # ===============================================
-# Book formatting
+ # Book formatting
 #
 fontsize: 10pt
 linestretch: 1.1

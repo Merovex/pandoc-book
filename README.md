@@ -1,4 +1,4 @@
-![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
+![Logo of the project](/images/logo.png?s=100)
 
 # Pandoc Novel
 > Simple toolchain for publishing books in PDF, epub, mobi, using Markdown & Pandoc
@@ -156,4 +156,4 @@ bruhalm@yahoo.com
 
 ## Licensing
 
-The code in this project is licensed under a BSD-3 [license](/LICENSE).
+The code in this project is licensed under a BSD-3 [license](/LICENSE.md).
