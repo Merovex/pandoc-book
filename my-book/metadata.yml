@@ -9,25 +9,38 @@ toc: false
 other-titles:
   - Bellicose
   - Scintilla
+
 # Copyright Information
 firstprint: [10,1,1970]
-copyright: Copyright © 2019 Ben Wilson
+publisher: Merovex Press
+rights: Copyright © 2019 Ben Wilson
 disclaimer: >
   This is a work of fiction. Names, characters, places and incidents are either
   the product of the author's imagination or are used fictitiously, and any resemblance to
   actual persons, living or dead, business establishments, events or locales is entirely
   coincidental.
-rights: >
+
+reservation: >
   No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.
-isbn:
+
+# lccn:  # http://www.loc.gov/publish/pcn/
+
+isbn: # Paperback
   - "9-78098-3952-107 paperback"
   - "9-78098-3952-107 ebook"
 
+identifier: # Ebook
+  -scheme: ISBN-13
+  -text:   isbn13:9-78098-3952-107
+
 # Production Recognition
-producers:
+credits:
   - "Cover Design: Donna Murillo"
   - "Line Editor: Lenny"
   - "Copy Editor: Candice"
+
+country: Printed in the United States of America
+
 links-as-notes: true
 
 # ===============================================

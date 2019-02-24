@@ -2,8 +2,9 @@ BUILD_DIR = build/
 TEMPLATE_DIR = templates/
 IMAGES_DIR = images/
 CSS_FILE = style.css
+VERSION = $(shell git describe --abbrev=0 --tags)
 # Basename of CWD and the current git tag.
-OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(shell git describe --abbrev=0 --tags)
+OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(VERSION)
 
 CHAPTERS = text/*.md
 METADATA = metadata.yml
@@ -14,6 +15,7 @@ EPUB_BUILDER_FLAGS = \
 	--css=templates/$(CSS_FILE) \
 	--template templates/epub.html \
 	--metadata-file=$(METADATA) \
+	--metadata=version:$(VERSION)
 	--lua-filter templates/latex.lua \
 	--toc --toc-depth=2 \
 	--webtex
@@ -24,12 +26,14 @@ HTML_BUILDER_FLAGS = \
 	--metadata-file=$(METADATA) \
 	--lua-filter templates/latex.lua \
 	--toc --toc-depth=2 \
+	--self-contained \
 	--webtex
 
 PDF_BUILDER_FLAGS = \
 	-V documentclass=$(LATEX_CLASS) \
 	--template templates/pdf.tex \
 	--metadata-file=$(METADATA) \
+	--metadata=version:$(VERSION)
 	--lua-filter templates/latex.lua \
 	--toc --toc-depth=2 \
 	--webtex
@@ -45,7 +49,7 @@ clean:
 
 word:
 	mkdir -p $(BUILD_DIR)
-	pandoc --reference-doc=templates/word.docx --lua-filter templates/latex.lua -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
+	pandoc --reference-doc=templates/reference.docx --metadata-file=$(METADATA) --lua-filter templates/latex.lua -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
 
 pdf:
 	mkdir -p $(BUILD_DIR)

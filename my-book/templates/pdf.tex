@@ -528,25 +528,33 @@ $endif$
   \vspace*{\fill}
 
   \par\noindent\emph{$title$}\newline
-  \par\noindent\emph{$copyright$}\newline
+  \par\noindent\emph{$rights$}\newline
 
   \footnotesize
-  $if(rights)$\par\noindent $rights$\newline$endif$
+  $if(reservation)$\par\noindent $reservation$\newline$endif$
 
+  $for(isbn)$
+    \par\noindent ISBN $isbn$
+  $endfor$\newline
+
+  \footnotesize
   $if(disclaimer)$\par\noindent $disclaimer$\newline$endif$
 
   % Producer Acknowledgements
   \par\noindent Interior Design: Merovex Press % Per license terms for use of template.
-  $for(producers)$
-    \par\noindent $producers$
+  $for(credits)$
+    \par\noindent $credits$
   $endfor$\newline
 
-  \par\noindent $author$
+  \par\noindent $for(author)$
+      \par\noindent $author$
+    $endfor$\newline
+
   $if(website)$
     \par\noindent Visit us at \url{$website$}\newline
   $endif$
 
-  \par\noindent Printed in the United States of America
+  \par\noindent $country$
   \newline
 
   $if(firstprint)$
@@ -555,11 +563,9 @@ $endif$
     \newline
   $endif$
 
-  $for(isbn)$
-    \par\noindent ISBN $isbn$
-  $endfor$\newline
-
-  \par\noindent $identifier$
+  $if(version)$
+  \par\noindent Version: $version$
+  $endif$
   \vspace*{\fill}
   \clearpage\normalsize
 
