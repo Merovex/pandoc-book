@@ -13,44 +13,34 @@ awesome when someone starts to use it.
 * Author of fiction
 * Author of non-fiction
 
-
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+To use this template, clone the repository locally. Copy the contents of the `my-book/` directory as the new book you want to write (changing the name as appropriate). Then create a git repository of the new book.
 
-```shell
-packagemanager install awesome-project
-awesome-project start
-awesome-project "Do something!"  # prints "Nah."
+Commands you can execute:
+
 ```
-
-Here you should say what actually happens when you execute the code above.
+make clean
+make docx
+make html
+make mobi
+make pdf
+```
 
 ### Initial Configuration
 
 Some projects require initial configuration (e.g. access tokens or keys, `npm i`).
 This is the section where you would document those requirements.
 
-## Developing
-
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
-```shell
-git clone https://github.com/your/awesome-project.git
-cd awesome-project/
-packagemanager install
-```
-
-And state what happens step-by-step.
-
 ## Features
 
-What's all the bells and whistles this project can perform?
-* What's the main functionality
-* You can also do another thing
-* If you get really randy, you can even do this
+The Pandoc Novel converts Markdown to the following formats:
+
+* DOCX - Output into Microsoft Word, formatted for working with an editor.
+* EPUB - Suitable for release on non-Amazon ebook platforms
+* HTML - Suitable for preview in a browser.
+* MOBI - Suitable for release on Amazon's ebook platform.
+* PDF - Using LaTeX in the default form factor for Amazon publishing (6"x9")
 
 ## Configuration
 

@@ -51,7 +51,7 @@ book: epub html pdf mobi
 clean:
 	rm -r $(BUILD_DIR)/*
 
-word:
+docx:
 	mkdir -p $(BUILD_DIR)
 	pandoc $(WORD_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
 
