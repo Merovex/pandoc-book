@@ -5,7 +5,8 @@ CSS_FILE = style.css
 VERSION = $(shell git describe --abbrev=0 --tags)
 OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(VERSION)
 
-CHAPTERS = text/*.md
+# CHAPTERS = text/*.md
+CHAPTERS = $(shell find text -type f -name '*.md' | sort )
 METADATA = metadata.yml
 LATEX_CLASS = book
 
@@ -34,6 +35,7 @@ PDF_BUILDER_FLAGS = \
 	--metadata-file=$(METADATA) \
 	--metadata=version:$(VERSION) \
 	--lua-filter templates/latex.lua \
+	--pdf-engine=xelatex \
 	--toc --toc-depth=2 \
 	--webtex
 
@@ -49,7 +51,7 @@ all: book
 book: epub html pdf mobi
 
 clean:
-	rm -r $(BUILD_DIR)/*
+	rm -r $(BUILD_DIR)*
 
 docx:
 	mkdir -p $(BUILD_DIR)
