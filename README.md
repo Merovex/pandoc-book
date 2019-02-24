@@ -19,13 +19,12 @@ To use this template, clone the repository locally. Copy the contents of the `my
 
 Commands you can execute:
 
-```
-make clean
-make docx
-make html
-make mobi
-make pdf
-```
+* `make clean` - Deletes content of `build/`
+* `make docx` - Converts the Markdown in `text/` to Word DOCX format (output placed in `build/` directory).
+* `make html` - Converts the Markdown in `text/` to HTML format (output placed in `build/` directory).
+* `make mobi` - Converts the Markdown in `text/` to MOBI format (output placed in `build/` directory).
+* `make pdf` - Converts the Markdown in `text/` to PDF format (output placed in `build/` directory).
+
 
 ## Configuration
 
