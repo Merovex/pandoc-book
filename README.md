@@ -30,17 +30,17 @@ make pdf
 ## Configuration
 
 At a minimum, you will want to review / edit the following attributes in the `metadata.yml` file:
-* Title
-* Subtitle
-* Author
-* Website
-* Other-titles
-* Rights
-* Disclaimer
-* Reservation
-* ISBN
-* Identifier
-* Credits
+* `title` - The title of the book
+* `subtitle` - The subtitle of the book
+* `author` - The author(s) of the book (can be a string or array)
+* `website` - The author's website
+* `other-titles` - An array of other titles the author wants the reader to be aware of
+* `rights` - The work's copyright statement
+* `disclaimer` - The author's disclaimer
+* `reservation` - The author's reservation of rights
+* `isbn` - An array of ISBNs associated with the underlying work
+* `identifier` - The ISBN associated with the EPUB
+* `credits` - An array of those who supported the books' publication (artists, authors)
 
 The `images/` directory is where you should place images used to support the published work. You will also want to replace the following images with your own:
 * `cover.png` Provides the cover for the epub.
