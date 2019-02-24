@@ -13,7 +13,7 @@ awesome when someone starts to use it.
 * Author of fiction
 * Author of non-fiction
 
-## Installing / Getting started
+## Installing / Getting Started
 
 To use this template, clone the repository locally. Copy the contents of the `my-book/` directory as the new book you want to write (changing the name as appropriate). Then create a git repository of the new book.
 
@@ -25,6 +25,9 @@ Commands you can execute:
 * `make mobi` - Converts the Markdown in `text/` to MOBI format (output placed in `build/` directory).
 * `make pdf` - Converts the Markdown in `text/` to PDF format (output placed in `build/` directory).
 
+Pandoc Novel uses the [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) for the version added in the metadata and the filename. This is useful to keep track of different versions of the same work (i.e., different drafts; releases to editors, beta readers, etc. )
+
+* `git tag -a v1.4 -m "my version 1.4"`
 
 ## Configuration
 
@@ -46,19 +49,6 @@ The `images/` directory is where you should place images used to support the pub
 * `logo.png` Provides the imprint logo (both the name and logo are registered trademarks).
 
 The `text/` directory is where Pandoc Novel looks for the Markdown content.
-
-## Features
-
-The Pandoc Novel converts Markdown to the following formats:
-
-* DOCX - Output into Microsoft Word, formatted for working with an editor.
-* EPUB - Suitable for release on non-Amazon ebook platforms
-* HTML - Suitable for preview in a browser.
-* MOBI - Suitable for release on Amazon's ebook platform.
-* PDF - Using LaTeX in the default form factor for Amazon publishing (6"x9")
-
-Pandoc Novel leverages the git tag for versioning of the file.
-
 
 ## Contributing
 
