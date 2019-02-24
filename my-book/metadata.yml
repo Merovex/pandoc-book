@@ -49,9 +49,4 @@ fontsize: 10pt
 linestretch: 1.1
 fontfamily: "merriweather" # http://www.tug.dk/FontCatalogue
 geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside
-# chapter_style: "chappell"
-
-  # mainfont: Palatino
-  # sansfont: Tahoma
-  # monofont: Courier
 ---

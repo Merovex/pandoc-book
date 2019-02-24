@@ -56,26 +56,85 @@ What's all the bells and whistles this project can perform?
 
 ### Metadata.yml
 
-Here you should write what are all of the configurations a user can enter when
-using the project.
+#### Title
+Type: `String` Default: `A Song of Stone`
 
-#### Argument 1
-Type: `String`
-Default: `'default value'`
+#### Subtitle
+Type: `String` Default: `This is a work of fiction`
 
-State what an argument does and how you can use it. If needed, you can provide
-an example below.
+#### Author
+Type: `String` Default: `Ben Wilson`
 
-Example:
-```bash
-awesome-project "Some other value"  # Prints "You're nailing this readme!"
-```
+#### Website
 
-#### Argument 2
-Type: `Number|Boolean`
-Default: 100
+Type: `String` Default: `https://merovex.com`
 
-Copy-paste as many of these as you need.
+### Imprint
+
+Type: `String` Default: `images/logo.png`
+
+### toc
+
+Type: `bool` Default: `false`
+
+### other
+titles:
+- Bellicose
+- Scintilla
+
+
+#### firstprint
+[10,1,1970]
+
+#### Publisher
+
+Type: `String` Default: `Merovex Press`
+
+#### Rights
+
+Type: `String` Default: `Copyright © 2019 Ben Wilson`
+
+
+#### Disclaimer
+
+Type: `String` Default: ` This is a work of fiction. Names, characters, places and incidents are either the product of the author's imagination or are used fictitiously, and any resemblance to actual persons, living or dead, business establishments, events or locales is entirely coincidental.`
+
+
+### reservation
+Type: `String` Default: `No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.`
+
+
+### LCCN
+lccn:  # http://www.loc.gov/publish/pcn/
+Type: `String` Default: `blank`
+
+
+### isbn
+# Paperback
+- "9-78098-3952-107 paperback"
+- "9-78098-3952-107 ebook"
+
+
+#### Identifier
+# Ebook
+-scheme: ISBN-13
+-text:   isbn13:9-78098-3952-107
+
+#### Credits:
+Type: `Array of Strings`
+
+#### Country
+Type: `String` Default: `Printed in the United States of America`
+links-as-notes: true
+
+# ===============================================
+# Book formatting
+#
+fontsize: 10pt
+linestretch: 1.1
+fontfamily: "merriweather" # http://www.tug.dk/FontCatalogue
+geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside
+---
 
 ### Makefile
 
@@ -95,12 +154,12 @@ links to humans using your project. You can include links like:
 - Project homepage: https://your.github.com/awesome-project/
 - Repository: https://github.com/your/awesome-project/
 - Issue tracker: https://github.com/your/awesome-project/issues
-  - In case of sensitive bugs like security vulnerabilities, please contact
-    my@email.com directly instead of using issue tracker. We value your effort
-    to improve the security and privacy of this project!
+- In case of sensitive bugs like security vulnerabilities, please contact
+  my@email.com directly instead of using issue tracker. We value your effort
+  to improve the security and privacy of this project!
 - Related projects:
-  - Your other project: https://github.com/your/other-project/
-  - Someone else's project: https://github.com/someones/awesome-project/
+- Your other project: https://github.com/your/other-project/
+- Someone else's project: https://github.com/someones/awesome-project/
 
 ## Acknowledgements
 
