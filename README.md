@@ -44,7 +44,7 @@ At a minimum, you will want to review / edit the following attributes in the `me
 
 You will also want to replace the following images:
 * `cover.png` Provides the cover for the epub.
-* `logo.png` Provides the imprint logo.
+* `logo.png` Provides the imprint logo (both the name and logo are registered trademarks).
 
 ## Features
 

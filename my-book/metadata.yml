@@ -40,11 +40,11 @@ credits:
   - "Copy Editor: Cynthia Shepp"
 
 country: Printed in the United States of America
-links-as-notes: true
 
 # ===============================================
- # Book formatting
+# Book formatting - Avoid
 #
+links-as-notes: true
 fontsize: 10pt
 linestretch: 1.1
 fontfamily: "merriweather" # http://www.tug.dk/FontCatalogue
