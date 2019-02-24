@@ -1,49 +1,89 @@
-BUILD = build/
-TAG := $(shell git describe --abbrev=0 --tags)
-MAKEFILE = Makefile
-OUTPUT_FILENAME = $(shell basename $(CURDIR))-$(TAG)
-METADATA = metadata.yml
-CHAPTERS = text/*.md
-TOC = --toc --toc-depth=2
-IMAGES_FOLDER = images
-IMAGES = $(IMAGES_FOLDER)/*
-COVER_IMAGE = $(IMAGES_FOLDER)/cover.png
-LATEX_CLASS = book
-MATH_FORMULAS = --webtex
+BUILD_DIR = build/
 TEMPLATE_DIR = templates/
+IMAGES_DIR = images/
 CSS_FILE = style.css
-CSS_ARG = --css=$(TEMPLATE_DIR)$(CSS_FILE)
-METADATA_ARG = --metadata-file=$(METADATA)
-ARGS = $(TOC) $(MATH_FORMULAS) $(CSS_ARG) $(METADATA_ARG)
+# Basename of CWD and the current git tag.
+OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(shell git describe --abbrev=0 --tags)
+
+CHAPTERS = text/*.md
+METADATA = metadata.yml
+LATEX_CLASS = book
+
+EPUB_BUILDER_FLAGS = \
+	--epub-cover-image=$(IMAGES_DIR)cover.png \
+	--css=templates/$(CSS_FILE) \
+	--template templates/epub.html \
+	--metadata-file=$(METADATA) \
+	--lua-filter templates/latex.lua \
+	--toc --toc-depth=2 \
+	--webtex
+
+HTML_BUILDER_FLAGS = \
+	--css=templates/$(CSS_FILE) \
+	--standalone --to=html5 \
+	--metadata-file=$(METADATA) \
+	--lua-filter templates/latex.lua \
+	--toc --toc-depth=2 \
+	--webtex
+
+PDF_BUILDER_FLAGS = \
+	-V documentclass=$(LATEX_CLASS) \
+	--template templates/pdf.tex \
+	--metadata-file=$(METADATA) \
+	--lua-filter templates/latex.lua \
+	--toc --toc-depth=2 \
+	--webtex
+
 MOBI_BUILDER = kindlegen
 
 all: book
 
-book: epub html pdf
+book: epub html pdf mobi
 
 clean:
-	rm -r $(BUILD)
+	rm -r $(BUILD_DIR)
 
-mobi: $(BUILD)$(OUTPUT_FILENAME).epub
-	$(MOBI_BUILDER) $^
+word:
+	mkdir -p $(BUILD_DIR)
+	pandoc --reference-doc=templates/word.docx --lua-filter templates/latex.lua -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
 
-epub: $(BUILD)$(OUTPUT_FILENAME).epub
+pdf:
+	mkdir -p $(BUILD_DIR)
+	pandoc $(PDF_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).pdf $(CHAPTERS)
 
-html: $(BUILD)html/$(OUTPUT_FILENAME).html
+html:
+	mkdir -p $(BUILD_DIR)html
+	cp -R $(IMAGES_DIR) $(BUILD_DIR)html/$(IMAGES_DIR)
+	pandoc $(HTML_BUILDER_FLAGS) -o $(BUILD_DIR)html/$(OUTPUT_BASENAME).html $(CHAPTERS)
 
-pdf: $(BUILD)$(OUTPUT_FILENAME).pdf
+$(BUILD_DIR)$(OUTPUT_BASENAME).epub:
+	mkdir -p $(BUILD_DIR)
+	pandoc $(EPUB_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).epub $(CHAPTERS)
 
-$(BUILD)$(OUTPUT_FILENAME).epub: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES) \
-	$(COVER_IMAGE)
-	mkdir -p $(BUILD)
-	pandoc $(ARGS) --template $(TEMPLATE_DIR)epub.html --epub-cover-image=$(COVER_IMAGE) -o $@ $(CHAPTERS)
+mobi: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
+	kindlegen $^
 
-$(BUILD)html/$(OUTPUT_FILENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
-	mkdir -p $(BUILD)html
-	pandoc $(ARGS) --standalone --to=html5 -o $@ $(CHAPTERS)
-	cp -R $(IMAGES_FOLDER)/ $(BUILD)html/$(IMAGES_FOLDER)/
-	cp $(TEMPLATE_DIR)$(CSS_FILE) $(BUILD)html/$(CSS_FILE)
+epub: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
+# mobi: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
+# 	kindlegen $^
+#
+# epub: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
+#
+# html: $(BUILD_DIR)html/$(OUTPUT_BASENAME).html
 
-$(BUILD)$(OUTPUT_FILENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
-	mkdir -p $(BUILD)
-	pandoc --template $(TEMPLATE_DIR)pdf.tex --lua-filter $(TEMPLATE_DIR)latex.lua $(ARGS) -V documentclass=$(LATEX_CLASS) -o $@ $(CHAPTERS)
+# pdf: $(BUILD_DIR)$(OUTPUT_BASENAME).pdf
+
+# $(BUILD_DIR)$(OUTPUT_BASENAME).epub: $(MAKEFILE) $(METADATA) $(CHAPTERS) templates/$(CSS_FILE) $(IMAGES) \
+# 	$(COVER_IMAGE)
+# 	mkdir -p $(BUILD_DIR)
+# 	pandoc $(ARGS) --template templates/epub.html --epub-cover-image=$(COVER_IMAGE) -o $@ $(CHAPTERS)
+#
+# $(BUILD_DIR)html/$(OUTPUT_BASENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) templates/$(CSS_FILE) $(IMAGES)
+# 	mkdir -p $(BUILD_DIR)html
+# 	pandoc $(ARGS) --standalone --to=html5 -o $@ $(CHAPTERS)
+# 	cp -R $(IMAGES_DIR) $(BUILD_DIR)html/$(IMAGES_DIR)
+# 	cp templates/$(CSS_FILE) $(BUILD_DIR)html/$(CSS_FILE)
+
+# $(BUILD_DIR)$(OUTPUT_BASENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(IMAGES)
+# 	mkdir -p $(BUILD_DIR)
+# 	pandoc $(PDF_BUILDER_FLAGS) -o $@ $(CHAPTERS)
