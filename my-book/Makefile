@@ -1,4 +1,4 @@
-BUILD = build
+BUILD = build/
 TAG := $(shell git describe --abbrev=0 --tags)
 MAKEFILE = Makefile
 OUTPUT_FILENAME = $(shell basename $(CURDIR))-$(TAG)
@@ -15,6 +15,7 @@ CSS_FILE = style.css
 CSS_ARG = --css=$(TEMPLATE_DIR)$(CSS_FILE)
 METADATA_ARG = --metadata-file=$(METADATA)
 ARGS = $(TOC) $(MATH_FORMULAS) $(CSS_ARG) $(METADATA_ARG)
+MOBI_BUILDER = kindlegen
 
 all: book
 
@@ -23,23 +24,26 @@ book: epub html pdf
 clean:
 	rm -r $(BUILD)
 
-epub: $(BUILD)/$(OUTPUT_FILENAME).epub
+mobi: $(BUILD)$(OUTPUT_FILENAME).epub
+	$(MOBI_BUILDER) $^
 
-html: $(BUILD)/html/$(OUTPUT_FILENAME).html
+epub: $(BUILD)$(OUTPUT_FILENAME).epub
 
-pdf: $(BUILD)/$(OUTPUT_FILENAME).pdf
+html: $(BUILD)html/$(OUTPUT_FILENAME).html
 
-$(BUILD)/$(OUTPUT_FILENAME).epub: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES) \
+pdf: $(BUILD)$(OUTPUT_FILENAME).pdf
+
+$(BUILD)$(OUTPUT_FILENAME).epub: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES) \
 	$(COVER_IMAGE)
 	mkdir -p $(BUILD)
 	pandoc $(ARGS) --template $(TEMPLATE_DIR)epub.html --epub-cover-image=$(COVER_IMAGE) -o $@ $(CHAPTERS)
 
-$(BUILD)/html/$(OUTPUT_FILENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
-	mkdir -p $(BUILD)/html
+$(BUILD)html/$(OUTPUT_FILENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
+	mkdir -p $(BUILD)html
 	pandoc $(ARGS) --standalone --to=html5 -o $@ $(CHAPTERS)
-	cp -R $(IMAGES_FOLDER)/ $(BUILD)/html/$(IMAGES_FOLDER)/
-	cp $(TEMPLATE_DIR)$(CSS_FILE) $(BUILD)/html/$(CSS_FILE)
+	cp -R $(IMAGES_FOLDER)/ $(BUILD)html/$(IMAGES_FOLDER)/
+	cp $(TEMPLATE_DIR)$(CSS_FILE) $(BUILD)html/$(CSS_FILE)
 
-$(BUILD)/$(OUTPUT_FILENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
+$(BUILD)$(OUTPUT_FILENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(TEMPLATE_DIR)$(CSS_FILE) $(IMAGES)
 	mkdir -p $(BUILD)
 	pandoc --template $(TEMPLATE_DIR)pdf.tex --lua-filter $(TEMPLATE_DIR)latex.lua $(ARGS) -V documentclass=$(LATEX_CLASS) -o $@ $(CHAPTERS)
