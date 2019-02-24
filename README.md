@@ -71,7 +71,6 @@ Type: `bool` Default: `false`
 
 Type: `Array of Strings`
 
-
 #### Firstprint
 [10,1,1970]
 
@@ -85,13 +84,17 @@ Type: `String` Default: `Copyright © 2019 Ben Wilson`
 
 #### Disclaimer
 
-Type: `String` Default: ` This is a work of fiction. Names, characters, places and incidents are either the product of the author's imagination or are used fictitiously, and any resemblance to actual persons, living or dead, business establishments, events or locales is entirely coincidental.`
+Type: `String` Default:
+
+```This is a work of fiction. Names, characters, places and incidents are either the product of the author's imagination or are used fictitiously, and any resemblance to actual persons, living or dead, business establishments, events or locales is entirely coincidental.```
 
 This field describes what legal disclaimer the author asserts.
 
 ### Reservation
 
-Type: `String` Default: `No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.`
+Type: `String` Default:
+
+```No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.```
 
 This field describes what rights are reserved.
 
