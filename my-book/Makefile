@@ -15,7 +15,7 @@ EPUB_BUILDER_FLAGS = \
 	--css=templates/$(CSS_FILE) \
 	--template templates/epub.html \
 	--metadata-file=$(METADATA) \
-	--metadata=version:$(VERSION)
+	--metadata=version:$(VERSION) \
 	--lua-filter templates/latex.lua \
 	--toc --toc-depth=2 \
 	--webtex
@@ -33,10 +33,15 @@ PDF_BUILDER_FLAGS = \
 	-V documentclass=$(LATEX_CLASS) \
 	--template templates/pdf.tex \
 	--metadata-file=$(METADATA) \
-	--metadata=version:$(VERSION)
+	--metadata=version:$(VERSION) \
 	--lua-filter templates/latex.lua \
 	--toc --toc-depth=2 \
 	--webtex
+
+WORD_BUILDER_FLAGS = \
+	--reference-doc=templates/reference.docx \
+	--metadata-file=$(METADATA) \
+	--lua-filter templates/latex.lua
 
 MOBI_BUILDER = kindlegen
 
@@ -49,7 +54,7 @@ clean:
 
 word:
 	mkdir -p $(BUILD_DIR)
-	pandoc --reference-doc=templates/reference.docx --metadata-file=$(METADATA) --lua-filter templates/latex.lua -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
+	pandoc $(WORD_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
 
 pdf:
 	mkdir -p $(BUILD_DIR)
