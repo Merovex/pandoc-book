@@ -42,7 +42,7 @@ At a minimum, you will want to review / edit the following attributes in the `me
 * Identifier
 * Credits
 
-You will also want to replace the following images:
+The `images/` directory is where you should place images used to support the published work. You will also want to replace the following images with your own:
 * `cover.png` Provides the cover for the epub.
 * `logo.png` Provides the imprint logo (both the name and logo are registered trademarks).
 
