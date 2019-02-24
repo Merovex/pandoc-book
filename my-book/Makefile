@@ -3,7 +3,6 @@ TEMPLATE_DIR = templates/
 IMAGES_DIR = images/
 CSS_FILE = style.css
 VERSION = $(shell git describe --abbrev=0 --tags)
-# Basename of CWD and the current git tag.
 OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(VERSION)
 
 CHAPTERS = text/*.md
@@ -50,7 +49,7 @@ all: book
 book: epub html pdf mobi
 
 clean:
-	rm -r $(BUILD_DIR)
+	rm -r $(BUILD_DIR)/*
 
 word:
 	mkdir -p $(BUILD_DIR)
@@ -73,26 +72,3 @@ mobi: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
 	kindlegen $^
 
 epub: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
-# mobi: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
-# 	kindlegen $^
-#
-# epub: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
-#
-# html: $(BUILD_DIR)html/$(OUTPUT_BASENAME).html
-
-# pdf: $(BUILD_DIR)$(OUTPUT_BASENAME).pdf
-
-# $(BUILD_DIR)$(OUTPUT_BASENAME).epub: $(MAKEFILE) $(METADATA) $(CHAPTERS) templates/$(CSS_FILE) $(IMAGES) \
-# 	$(COVER_IMAGE)
-# 	mkdir -p $(BUILD_DIR)
-# 	pandoc $(ARGS) --template templates/epub.html --epub-cover-image=$(COVER_IMAGE) -o $@ $(CHAPTERS)
-#
-# $(BUILD_DIR)html/$(OUTPUT_BASENAME).html: $(MAKEFILE) $(METADATA) $(CHAPTERS) templates/$(CSS_FILE) $(IMAGES)
-# 	mkdir -p $(BUILD_DIR)html
-# 	pandoc $(ARGS) --standalone --to=html5 -o $@ $(CHAPTERS)
-# 	cp -R $(IMAGES_DIR) $(BUILD_DIR)html/$(IMAGES_DIR)
-# 	cp templates/$(CSS_FILE) $(BUILD_DIR)html/$(CSS_FILE)
-
-# $(BUILD_DIR)$(OUTPUT_BASENAME).pdf: $(MAKEFILE) $(METADATA) $(CHAPTERS) $(IMAGES)
-# 	mkdir -p $(BUILD_DIR)
-# 	pandoc $(PDF_BUILDER_FLAGS) -o $@ $(CHAPTERS)
