@@ -29,8 +29,22 @@ make pdf
 
 ### Initial Configuration
 
-Some projects require initial configuration (e.g. access tokens or keys, `npm i`).
-This is the section where you would document those requirements.
+At a minimum, you will want to review / edit the following attributes in the `metadata.yml` file:
+* Title
+* Subtitle
+* Author
+* Website
+* Other-titles
+* Rights
+* Disclaimer
+* Reservation
+* ISBN
+* Identifier
+* Credits
+
+You will also want to replace the following images:
+* `cover.png` Provides the cover for the epub.
+* `logo.png` Provides the imprint logo.
 
 ## Features
 
@@ -41,6 +55,8 @@ The Pandoc Novel converts Markdown to the following formats:
 * HTML - Suitable for preview in a browser.
 * MOBI - Suitable for release on Amazon's ebook platform.
 * PDF - Using LaTeX in the default form factor for Amazon publishing (6"x9")
+
+Pandoc Novel leverages the git tag for versioning of the file.
 
 ## Configuration
 
