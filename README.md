@@ -77,13 +77,12 @@ Type: `String` Default: `images/logo.png`
 
 Type: `bool` Default: `false`
 
-### other
-titles:
-- Bellicose
-- Scintilla
+### other-titles:
+
+Type: `Array of Strings`
 
 
-#### firstprint
+#### Firstprint
 [10,1,1970]
 
 #### Publisher
@@ -94,47 +93,73 @@ Type: `String` Default: `Merovex Press`
 
 Type: `String` Default: `Copyright © 2019 Ben Wilson`
 
-
 #### Disclaimer
 
 Type: `String` Default: ` This is a work of fiction. Names, characters, places and incidents are either the product of the author's imagination or are used fictitiously, and any resemblance to actual persons, living or dead, business establishments, events or locales is entirely coincidental.`
 
+This field describes what legal disclaimer the author asserts.
 
-### reservation
+### Reservation
+
 Type: `String` Default: `No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.`
+
+This field describes what rights are reserved.
 
 
 ### LCCN
-lccn:  # http://www.loc.gov/publish/pcn/
 Type: `String` Default: `blank`
 
+This is the [Library of Congress Control Number](http://www.loc.gov/publish/pcn/)
 
-### isbn
-# Paperback
-- "9-78098-3952-107 paperback"
-- "9-78098-3952-107 ebook"
+### ISBN
 
+Type: `Array of Strings`
+
+This is an array of strings added to the copyright page sharing all of the relevant ISBNs assigned to this work in its various formats.
 
 #### Identifier
-# Ebook
+
 -scheme: ISBN-13
 -text:   isbn13:9-78098-3952-107
+
+This is an array of strings added to the EPUB metadata sharing the epub identifier.
 
 #### Credits:
 Type: `Array of Strings`
 
-#### Country
-Type: `String` Default: `Printed in the United States of America`
-links-as-notes: true
+This is an array of credits given to cover artists, editors, etc.
 
-# ===============================================
-# Book formatting
-#
-fontsize: 10pt
-linestretch: 1.1
-fontfamily: "merriweather" # http://www.tug.dk/FontCatalogue
-geometry: paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside
----
+#### Country
+
+Type: `String` Default: `Printed in the United States of America`
+
+
+#### Links-As-Notes
+
+Type: `bool` Default: `true`
+
+This setting makes URLs in text footnotes in the PDF format.
+
+#### Fontsize
+
+Type: `String` Default: `10pt`
+
+This is the PDF font size. Combined other PDF page settings, it provides the acceptable industry number of words per page and readability
+
+#### Linestretch: 1.1
+
+Type: `String` Default: `1.1`
+
+This is the PDF line height.. other PDF page settings, it provides the acceptable industry number of words per page and readability
+
+#### fontfamily: "merriweather" # http://www.tug.dk/FontCatalogue
+
+#### Geometry
+
+Type: `String` Default: `paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside`
+
+This creates the 6"x9" form factor recommended by Amazon's POD book publishing with acceptable margins and gutter. Combined other PDF page settings, it provides the acceptable industry number of words per page and readability.
+
 
 ### Makefile
 
