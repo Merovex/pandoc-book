@@ -215,8 +215,13 @@ $endif$
 $if(verbatim-in-note)$
 \VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
+
+\newcommand{\letterSized}{paperwidth=8.5in,paperheight=11in,margin=1.0in,twoside}
+\newcommand{\USTrade}{paperwidth=6in,paperheight=9in,left=0.875in,right=0.625in,top=0.825in,bottom=0.825in,twoside}
 $if(geometry)$
-\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+\usepackage[\$geometry$]{geometry}
+$else$
+\usepackage[\USTrade]{geometry}
 $endif$
 $if(beamer)$
 \newif\ifbibliography
