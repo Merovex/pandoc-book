@@ -45,7 +45,7 @@ country: Printed in the United States of America
 # Book formatting - Avoid
 #
 links-as-notes: true
-fontsize: 10pt
+fontsize: 11pt
 linestretch: 1.1
 fontfamily: "merriweather" # http://www.tug.dk/FontCatalogue
 ---

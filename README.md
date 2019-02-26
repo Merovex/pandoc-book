@@ -50,6 +50,19 @@ The `images/` directory is where you should place images used to support the pub
 
 The `text/` directory is where Pandoc Novel looks for the Markdown content.
 
+### Trim Sizes
+
+The `trimsize` attribute allows you to define the trim size of your PDF. Available sizes are:
+* AFourSize - 210x297mm, 20mm margins.
+* Letter - 8.5x11in, 1in margins.
+* USTrade - 6x9in, 0.6x0.8in margins.
+* Digest - 5.5x8.5in, 0.6x0.8in margins.
+* USSmallTrade - 5.25x8in, 0.6x0.8in margins.
+* Novella - 5x8in, 0.6x0.8in margins.
+* MassMarket - 4,25x7in, 0.5x0.8in margins.
+* UKAFormat - 111x178mm, 0.5x0.8in margins.
+* UKBFormat - 129x198in, 0.5x0.8in margins. 
+
 ## Contributing
 
 If you'd like to contribute, please fork the repository and use a feature
