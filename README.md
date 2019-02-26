@@ -1,6 +1,6 @@
 ![Logo of the project](/my-book/images/logo-sm.png)
 
-# Pandoc Novel
+# Pandoc Book
 > Simple toolchain for publishing books in PDF, epub, mobi, using Markdown & Pandoc
 
 [![Last Commit](https://img.shields.io/github/last-commit/merovex/pandoc-novel.svg)](https://github.com/merovex/pandoc-novel/branches)
@@ -75,7 +75,7 @@ Even though this information can be found inside the project on machine-readable
 format like in a .json file, it's good to include a summary of most useful
 links to humans using your project. You can include links like:
 
-- Project homepage: https://your.github.com/awesome-project/
+<!-- - Project homepage: https://your.github.com/awesome-project/ -->
 - Repository: https://github.com/Merovex/pandoc-book/
 - Issue tracker: https://github.com/Merovex/pandoc-book/issues
 - Related projects:
