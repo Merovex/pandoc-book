@@ -53,7 +53,7 @@ The `text/` directory is where Pandoc Novel looks for the Markdown content.
 ### Trim Sizes
 
 The `trimsize` attribute allows you to define the trim size of your PDF. Available sizes are:
-* AFourSize - 210x297mm, 20mm margins.
+
 * Letter - 8.5x11in, 1in margins.
 * USTrade - 6x9in, 0.6x0.8in margins.
 * Digest - 5.5x8.5in, 0.6x0.8in margins.
@@ -61,7 +61,8 @@ The `trimsize` attribute allows you to define the trim size of your PDF. Availab
 * Novella - 5x8in, 0.6x0.8in margins.
 * MassMarket - 4,25x7in, 0.5x0.8in margins.
 * UKAFormat - 111x178mm, 0.5x0.8in margins.
-* UKBFormat - 129x198in, 0.5x0.8in margins. 
+* UKBFormat - 129x198in, 0.5x0.8in margins.
+* AFourSize - 210x297mm, 20mm margins.
 
 ## Contributing
 
@@ -93,18 +94,6 @@ My earlier forays into plaintext to Novel were in LaTeX, then a [custom-modified
 * Pascal Wagler, [Eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template), for giving away that one can pull down the stock Pandoc LaTeX template and modify it.
 * BP, [Pandoc Google Group](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/pandoc-discuss/JVAKdezOoVg/RCY30ypTEQAJ), for helping me change the Horizontal Rule into a Plain Fancy Break.
 * [Memoir class](https://ctan.org/pkg/memoir?lang=en), for having code on Plain Fancy Break that I was able to copy over.
-
-baugust3@masonlive.gmu.edu,
-daily.j.g88@gmail.com,
-freddi.arce@gmail.com,
-pushpa.jayapal@gmail.com,
-e.eshupp@nodetus.com,
-nvinta@masonlive.gmu.edu,
-dausha@gmail.com,
-keith.wojciech@telos.com,
-siravecclasse@gmail.com,
-miketatum@yahoo.com,
-bruhalm@yahoo.com
 
 ## Licensing
 
