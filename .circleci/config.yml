@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: merovex/pandoc-book:firsttry
+      - image: merovex/pandoc-book:2x
 
     steps:
       - checkout
