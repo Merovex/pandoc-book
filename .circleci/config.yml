@@ -1,16 +1,15 @@
 version: 2
-# publish-github-release:
-#   docker:
-#     - image: circleci/golang:1.8
-#   steps:
-#     - attach_workspace:
-#         at: ./artifacts
-#     - run:
-#         name: "Publish Release on GitHub"
-#         command: |
-#           go get github.com/tcnksm/ghr
-#           VERSION=$(my-binary --version)
-#           ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+publish-github-release:
+    docker:
+      - image: cibuilds/github:0.10
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            VERSION=$(my-binary --version)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
 
 jobs:
   build:
