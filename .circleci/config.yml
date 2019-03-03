@@ -13,13 +13,11 @@ publish-github-release:
           ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
 main:
   jobs:
-    build:
+    - build:
       docker:
         - image: merovex/pandoc-book:latest
       steps:
-        # - setup_remote_docker
         - checkout
-
         - run:
             name: Build Book
             command: |
@@ -31,5 +29,5 @@ main:
         - store_artifacts:
             path: /tmp/builds
     - publish-github-release
-        requires:
-          - build
+      requires:
+        - build
