@@ -46,9 +46,13 @@ WORD_BUILDER_FLAGS = \
 
 MOBI_BUILDER = kindlegen
 
+.PHONY: show-args
+show-args:
+	@printf "Book Version: %s\n" $(VERSION)
+
 all: book
 
-book: epub html pdf mobi
+book: pdf html mobi
 
 clean:
 	rm -r $(BUILD_DIR)*

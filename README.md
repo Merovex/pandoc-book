@@ -3,7 +3,10 @@
 # Pandoc Book
 > Simple toolchain for publishing books in PDF, epub, mobi, using Markdown & Pandoc
 
-[![Last Commit](https://img.shields.io/github/last-commit/merovex/pandoc-novel.svg)](https://github.com/merovex/pandoc-novel/branches)
+[![Last Commit](https://img.shields.io/github/last-commit/merovex/pandoc-book.svg)](https://github.com/merovex/pandoc-book/branches)
+
+[![Build Status](https://travis-ci.org/PalEON-Project/stepps-baconizing.svg?branch=master)](https://travis-ci.org/PalEON-Project/stepps-baconizing)
+
 
 A brief description of your project, what it is used for and how does life get
 awesome when someone starts to use it.
@@ -16,6 +19,8 @@ awesome when someone starts to use it.
 ## Installing / Getting Started
 
 To use this template, clone the repository locally. Copy the contents of the `my-book/` directory as the new book you want to write (changing the name as appropriate). Then create a git repository of the new book.
+
+You will need to install [Pandoc](https://pandoc.org/), and be familiar with [Markdown](https://daringfireball.net/projects/markdown/).
 
 Commands you can execute:
 
@@ -54,15 +59,15 @@ The `text/` directory is where Pandoc Novel looks for the Markdown content.
 
 The `trimsize` attribute allows you to define the trim size of your PDF. Available sizes are:
 
-* Letter - 8.5x11in, 1in margins.
-* USTrade - 6x9in, 0.6x0.8in margins.
-* Digest - 5.5x8.5in, 0.6x0.8in margins.
-* USSmallTrade - 5.25x8in, 0.6x0.8in margins.
-* Novella - 5x8in, 0.6x0.8in margins.
-* MassMarket - 4,25x7in, 0.5x0.8in margins.
-* UKAFormat - 111x178mm, 0.5x0.8in margins.
-* UKBFormat - 129x198in, 0.5x0.8in margins.
-* AFourSize - 210x297mm, 20mm margins.
+* `Letter` - 8.5x11in, 1in margins.
+* `USTrade` - 6x9in, 0.6x0.8in margins.
+* `Digest` - 5.5x8.5in, 0.6x0.8in margins.
+* `USSmallTrade` - 5.25x8in, 0.6x0.8in margins.
+* `Novella` - 5x8in, 0.6x0.8in margins.
+* `MassMarket` - 4,25x7in, 0.5x0.8in margins.
+* `UKAFormat` - 111x178mm, 0.5x0.8in margins.
+* `UKBFormat` - 129x198in, 0.5x0.8in margins.
+* `AFourSize` - 210x297mm, 20mm margins.
 
 ## Contributing
 

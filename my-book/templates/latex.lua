@@ -10,7 +10,7 @@ local hashrule = [[<w:p>
   </w:r>
 </w:p>]]
 function HorizontalRule (elem)
-    print("FORMAT: " .. FORMAT)
+    -- print("FORMAT: " .. FORMAT)
     if FORMAT == 'latex' then
       return pandoc.RawBlock('latex', '\\pfbreak')
     end
