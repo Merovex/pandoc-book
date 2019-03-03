@@ -1,8 +1,9 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: debian:stretch
+    docker: [{image: "docker:17.12.0-ce-git"}]
+    # docker:
+    #   - image: debian:stretch
 
     steps:
       - checkout
