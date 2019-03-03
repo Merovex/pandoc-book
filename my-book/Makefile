@@ -5,7 +5,7 @@ CSS_FILE = style.css
 VERSION = $(shell git describe --abbrev=0 --tags)
 OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(VERSION)
 
-# CHAPTERS = text/*.md
+# CHAPTERS = text/*.md 
 CHAPTERS = $(shell find text -type f -name '*.md' | sort )
 METADATA = metadata.yml
 LATEX_CLASS = book
@@ -61,7 +61,7 @@ docx:
 	mkdir -p $(BUILD_DIR)
 	pandoc $(WORD_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
 
-pdf: 
+pdf:
 	mkdir -p $(BUILD_DIR)
 	pandoc $(PDF_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).pdf $(CHAPTERS)
 
