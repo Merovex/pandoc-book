@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    docker: [{image: "docker:jagregory/pandoc"}]
+    docker: [{image: "dalibo/pandocker"}]
     # docker:
     #   - image: debian:stretch
 
