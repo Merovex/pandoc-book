@@ -5,7 +5,7 @@ CSS_FILE = style.css
 VERSION = $(shell git describe --abbrev=0 --tags)
 OUTPUT_BASENAME = $(shell basename $(CURDIR))-$(VERSION)
 
-# CHAPTERS = text/*.md 
+# CHAPTERS = text/*.md
 CHAPTERS = $(shell find text -type f -name '*.md' | sort )
 METADATA = metadata.yml
 LATEX_CLASS = book
