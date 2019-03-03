@@ -1,7 +1,9 @@
 version: 2
 jobs:
   build:
-    docker: [{image: "docker:17.12.0-ce-git"}]
+    # docker: [{image: "docker:17.12.0-ce-git"}]
+    docker:
+      -images: circleci/python:3-stretch
     # docker:
     #   - image: debian:stretch
 
