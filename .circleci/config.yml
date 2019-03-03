@@ -49,9 +49,9 @@ workflows:
           branches:
             ignore:
               - /server-dev-.*/
-    publish-github-release:
-      requires:
-        - build
+      - publish-github-release:
+        requires:
+          - build
 
           # filters:
           #   branches:
