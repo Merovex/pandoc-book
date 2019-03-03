@@ -26,7 +26,7 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            find . -ls
+            find . 
             VERSION=v0.1
             pwd
             # VERSION=$(cat .version)
