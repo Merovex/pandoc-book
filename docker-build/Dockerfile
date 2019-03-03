@@ -28,15 +28,16 @@ RUN fetch-pandoc.sh ${PANDOC_VERSION} ./cache/pandoc.deb && \
     dpkg --install ./cache/pandoc.deb && \
     rm -f ./cache/pandoc.deb
 
-RUN wget --output-document=/tmp/kindlegen.tgz http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz
-RUN tar xvfz /tmp/kindlegen.tgz -C /tmp
-RUN mv /tmp/kindlegen /usr/bin/kindlegen && chown -R root:root /usr/bin
+RUN cd /tmp \
+  && wget --output-document=kindlegen.tgz http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz \
+  && tar xvfz kindlegen.tgz -C /tmp \
+  && mv kindlegen /usr/bin/kindlegen \
+  && chown -R root:root /usr/bin
 RUN rm -r /tmp/*
 
-RUN wget --output-document=ghr.tar.gz "https://github.com/tcnksm/ghr/releases/download/v${GHR_VERSION}/ghr_v${GHR_VERSION}_linux_amd64.tar.gz" && \
-        tar -xvzf ghr.tar.gz && \
-        mv ghr_v${GHR_VERSION}_linux_amd64/ghr /usr/local/bin && \
-        chown root:root /usr/local/bin/ghr && \
-        rm -r \
-            ghr.tar.gz \
-            ghr_v${GHR_VERSION}_linux_amd64
+RUN cd /tmp \
+  && wget --output-document=ghr.tgz "https://github.com/tcnksm/ghr/releases/download/v${GHR_VERSION}/ghr_v${GHR_VERSION}_linux_amd64.tar.gz" \
+  && tar -xvzf ghr.tgz \
+  && mv ghr_v${GHR_VERSION}_linux_amd64/ghr /usr/local/bin \
+  && chown root:root /usr/local/bin/ghr
+RUN rm -rf /tmp/*
