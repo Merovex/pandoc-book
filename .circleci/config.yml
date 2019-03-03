@@ -14,7 +14,7 @@ jobs:
             cd my-book
             make pdf docx epub html
             mkdir -p /tmp/builds
-            cp builds/*.* /tmp/builds
+            cp build/*.* /tmp/builds
 
       - store_artifacts:
           path: /tmp/builds
