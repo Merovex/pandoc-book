@@ -15,7 +15,7 @@ jobs:
             cp -r build/* /tmp/builds
             go get github.com/tcnksm/ghr
             which go
-            which ghr
+            which ghr 
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/builds/
       - store_artifacts:
           path: /tmp/builds
