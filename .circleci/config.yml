@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: merovex/pandoc-book:3x
+      - image: merovex/pandoc-book:latest
 
     steps:
       - setup_remote_docker
