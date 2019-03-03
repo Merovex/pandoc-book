@@ -12,9 +12,9 @@ jobs:
           name: Build Book
           command: |
             cd my-book
-            make book
+            make pdf docx epub html
             mkdir -p /tmp/builds
             cp builds/*.* /tmp/builds
-            
+
       - store_artifacts:
           path: /tmp/builds

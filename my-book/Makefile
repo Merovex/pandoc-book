@@ -61,9 +61,7 @@ docx:
 	mkdir -p $(BUILD_DIR)
 	pandoc $(WORD_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).docx $(CHAPTERS)
 
-pdf:
-	pandoc --version
-	which pandoc
+pdf: 
 	mkdir -p $(BUILD_DIR)
 	pandoc $(PDF_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).pdf $(CHAPTERS)
 
