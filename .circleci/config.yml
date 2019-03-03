@@ -44,7 +44,11 @@ workflows:
   version: 2
   build:
     jobs:
-      - build
+      - build:
+        filters:
+          branches:
+            ignore:
+              - /server-dev-.*/
       - publish-github-release:
         requires:
           - build
