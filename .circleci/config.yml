@@ -1,20 +1,40 @@
 version: 2
 jobs:
-  build:
+  make_pdf:
     docker:
       - image: merovex/pandoc-book:latest
-
     steps:
-      - setup_remote_docker
+      # - setup_remote_docker
       - checkout
-
       - run:
-          name: Build Book
+          name: Build PDF
           command: |
             cd my-book
-            make pdf docx epub html
+            make pdf epub
             mkdir -p /tmp/builds
             cp build/*.* /tmp/builds
 
       - store_artifacts:
           path: /tmp/builds
+  make_docx:
+    docker:
+      - image: merovex/pandoc-book:latest
+    steps:
+      # - setup_remote_docker
+      - checkout
+      - run:
+          name: Build DOCS
+          command: |
+            cd my-book
+            make docx
+            mkdir -p /tmp/builds
+            cp build/*.* /tmp/builds
+
+      - store_artifacts:
+          path: /tmp/builds
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - make_pdf
+      - make_docx
