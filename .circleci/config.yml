@@ -13,8 +13,8 @@ jobs:
             make pdf docx epub html
             mkdir -p /tmp/builds
             cp -r build/* /tmp/builds
-            echo ${VERSION} > /tmp/builds/.version
-
+            go get github.com/tcnksm/ghr
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/builds/
       - store_artifacts:
           path: /tmp/builds
   publish-github-release:
@@ -26,11 +26,7 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            find . 
-            VERSION=v0.1
             pwd
-            # VERSION=$(cat .version)
-            # ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/builds/
 
 
 workflows:
@@ -38,6 +34,6 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - publish-github-release:
-          requires:
-            - build
+      # - publish-github-release:
+      #     requires:
+      #       - build
