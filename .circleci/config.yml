@@ -38,6 +38,8 @@ workflows:
             ignore:
               - /server-dev-.*/
   publish-github-release:
+    jobs:
+      - publish-github-release
     requires:
       - build
 
