@@ -10,34 +10,34 @@ publish-github-release:
           command: |
             VERSION=$(my-binary --version)
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+main:
+  jobs:
+    - build:
+      docker:
+        - image: merovex/pandoc-book:latest
+      steps:
+        - checkout
+        - run:
+            name: Build Book
+            command: |
+              cd my-book
+              make pdf docx epub html
+              mkdir -p /tmp/builds
+              cp build/*.* /tmp/builds
 
-jobs:
-  build:
-    docker:
-      - image: merovex/pandoc-book:latest
-    steps:
-      - checkout
-      - run:
-          name: Build Book
-          command: |
-            cd my-book
-            make pdf docx epub html
-            mkdir -p /tmp/builds
-            cp build/*.* /tmp/builds
-
-      - store_artifacts:
-          path: /tmp/builds
-  publish-github-release:
-    docker:
-      - image: circleci/golang:1.8
-    steps:
-      - attach_workspace:
-          at: ./artifacts
-      - run:
-          name: "Publish Release on GitHub"
-          command: |
-            go get github.com/tcnksm/ghr
-            VERSION=$(my-binary --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
-    requires:
-      - build
+        - store_artifacts:
+            path: /tmp/builds
+    - publish-github-release:
+      docker:
+        - image: circleci/golang:1.8
+      steps:
+        - attach_workspace:
+            at: ./artifacts
+        - run:
+            name: "Publish Release on GitHub"
+            command: |
+              go get github.com/tcnksm/ghr
+              VERSION=$(my-binary --version)
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+      requires:
+        - build
