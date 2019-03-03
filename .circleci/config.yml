@@ -7,6 +7,7 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker
 
       - run:
           name: Greeting
@@ -15,3 +16,7 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+
+      - run:
+          name: Fnord
+          command: cd my-book && make pdf 
