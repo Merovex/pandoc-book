@@ -28,7 +28,7 @@ main:
 
         - store_artifacts:
             path: /tmp/builds
-    - publish-github-release
+    - publish-github-release:
       docker:
         - image: circleci/golang:1.8
       steps:
