@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     docker:
-      # - image: debian:stretch
       - image: merovex/pandoc-book:firsttry
 
     steps:
