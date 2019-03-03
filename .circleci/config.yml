@@ -40,10 +40,5 @@ workflows:
   publish-github-release:
     jobs:
       - publish-github-release:
-        requires:
-          - build
-
-          # filters:
-          #   branches:
-          #     ignore:
-          #       - /server-dev-.*/
+        # requires:
+        #   - build
