@@ -31,6 +31,7 @@ RUN fetch-pandoc.sh ${PANDOC_VERSION} ./cache/pandoc.deb && \
 RUN wget --output-document=/tmp/kindlegen.tgz http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz
 RUN tar xvfz /tmp/kindlegen.tgz -C /tmp
 RUN mv /tmp/kindlegen /usr/bin/kindlegen
+RUN chown root /usr/bin/kindlegen 
 RUN rm -r /tmp/*
 
 RUN wget --output-document=ghr.tar.gz "https://github.com/tcnksm/ghr/releases/download/v${GHR_VERSION}/ghr_v${GHR_VERSION}_linux_amd64.tar.gz" && \
