@@ -13,27 +13,15 @@ jobs:
             make pdf docx epub html
             mkdir -p /tmp/builds
             cp -r build/* /tmp/builds
-            which ghr
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/builds/
       - store_artifacts:
           path: /tmp/builds
-  publish-github-release:
-    docker:
-      - image: cibuilds/github:0.10
-    steps:
-      - attach_workspace:
-          at: ./artifacts
-      - run:
-          name: "Publish Release on GitHub"
-          command: |
-            pwd
 
-
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      # - publish-github-release:
-      #     requires:
-      #       - build
+# workflows:
+#   version: 2
+#   build-and-deploy:
+#     jobs:
+#       - build
+#       # - publish-github-release:
+#       #     requires:
+#       #       - build
