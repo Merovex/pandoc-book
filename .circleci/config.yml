@@ -14,14 +14,3 @@ jobs:
             mkdir -p /tmp/builds
             cp -r build/* /tmp/builds
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/builds/
-      - store_artifacts:
-          path: /tmp/builds
-
-# workflows:
-#   version: 2
-#   build-and-deploy:
-#     jobs:
-#       - build
-#       # - publish-github-release:
-#       #     requires:
-#       #       - build
