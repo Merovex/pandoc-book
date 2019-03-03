@@ -9,13 +9,12 @@ jobs:
       - checkout
 
       - run:
-          name: Greeting
-          command: echo Hello, world..
-
-      - run:
-          name: Print the Current Time
-          command: date
-
-      - run:
-          name: Fnord
-          command: cd my-book && pwd && ls -al && make pdf
+          name: Build Book
+          command: |
+            cd my-book
+            make book
+            mkdir -p /tmp/builds
+            cp builds/*.* /tmp/builds
+            
+      - store_artifacts:
+          path: /tmp/builds
