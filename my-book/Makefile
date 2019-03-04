@@ -1,3 +1,4 @@
+SHELL = /bin/bash
 BUILD_DIR = build/
 TEMPLATE_DIR = templates/
 IMAGES_DIR = images/
