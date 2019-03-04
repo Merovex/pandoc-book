@@ -30,7 +30,8 @@ RUN fetch-pandoc.sh ${PANDOC_VERSION} ./cache/pandoc.deb && \
     rm -f ./cache/pandoc.deb
 
 RUN cd /tmp \
-  && wget --output-document=/usr/bin/kindlegen https://drive.google.com/open?id=1BPyb8SGqi6s_RLlWm1CAldQLwzmXHJrD
+  && wget --output-document=/usr/bin/kindlegen https://drive.google.com/open?id=1BPyb8SGqi6s_RLlWm1CAldQLwzmXHJrD \
+  && chmod 755 /usr/bin/kindlegen
   #\
 #   && tar xvfz kindlegen.tgz -C /tmp \
 #   && mv kindlegen /usr/bin/kindlegen \
