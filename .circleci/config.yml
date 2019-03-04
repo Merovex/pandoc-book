@@ -10,8 +10,8 @@ jobs:
           command: |
             VERSION=$(git describe --abbrev=0 --tags)
             cd my-book
-            # make book
-            make pdf
+            make book
+            # make pdf
             mkdir -p /tmp/builds
             cp -r build/* /tmp/builds
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/builds/
