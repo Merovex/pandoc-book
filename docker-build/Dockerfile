@@ -32,12 +32,12 @@ RUN cd /tmp \
   && wget --output-document=kindlegen.tgz http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz \
   && tar xvfz kindlegen.tgz -C /tmp \
   && mv kindlegen /usr/bin/kindlegen \
-  && chown -R root:root /root
+  && chown -R root:root /usr/bin
 RUN rm -r /tmp/*
 
 RUN cd /tmp \
   && wget --output-document=ghr.tgz "https://github.com/tcnksm/ghr/releases/download/v${GHR_VERSION}/ghr_v${GHR_VERSION}_linux_amd64.tar.gz" \
   && tar -xvzf ghr.tgz \
   && mv ghr_v${GHR_VERSION}_linux_amd64/ghr /usr/local/bin \
-  && chown root:root /root
+  && chown root:root /usr/local/bin
 RUN rm -rf /tmp/*
