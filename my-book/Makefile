@@ -53,7 +53,7 @@ show-args:
 
 all: book
 
-book: pdf html mobi
+book: pdf html epub
 
 clean:
 	rm -r $(BUILD_DIR)*
@@ -74,8 +74,5 @@ html:
 $(BUILD_DIR)$(OUTPUT_BASENAME).epub:
 	mkdir -p $(BUILD_DIR)
 	pandoc $(EPUB_BUILDER_FLAGS) -o $(BUILD_DIR)$(OUTPUT_BASENAME).epub $(CHAPTERS)
-
-mobi: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
-	kindlegen $^
 
 epub: $(BUILD_DIR)$(OUTPUT_BASENAME).epub
