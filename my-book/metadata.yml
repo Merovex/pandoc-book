@@ -27,7 +27,7 @@ isbn: # Paperback
   - "9-78098-3952-107 paperback"
   - "9-78098-3952-107 ebook"
 
-identifier: # Ebook
+identifier: # Ebook.
   -scheme: ISBN-13
   -text:   isbn13:9-78098-3952-107
 
