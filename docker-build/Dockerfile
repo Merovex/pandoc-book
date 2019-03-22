@@ -22,6 +22,14 @@ RUN apt-get update -q \
 RUN rm -rf /var/lib/apt/lists/*
 RUN mkdir -p ./cache
 
+# Install all Google Web Fonts
+RUN apt-get install -y git fontconfig
+RUN git clone https://github.com/google/fonts.git
+# RUN hg clone https://googlefontdirectory.googlecode.com/hg/ fonts
+RUN mkdir -p /usr/share/fonts/truetype/google-fonts/
+RUN find $PWD/fonts/ -name "*.ttf" -exec install -m644 {} /usr/share/fonts/truetype/google-fonts/ \; || return 1
+RUN fc-cache -f -v
+
 ARG PANDOC_VERSION=2.6
 ADD fetch-pandoc.sh /usr/local/bin/
 RUN fetch-pandoc.sh ${PANDOC_VERSION} ./cache/pandoc.deb && \
