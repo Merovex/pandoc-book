@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
+require 'fileutils'
 require 'yaml'
+require 'base64'
 
 pattern = %r{<!-- (.*?) -->(.*?)<!-- \/\1 -->}m
 template_file = ".README-template.md"
@@ -33,6 +35,9 @@ sections = {
     :header   => ""
   },
 }
+
+puts "Running Readme compile on (#{Dir.pwd})"
+FileUtils.cp("/.README-template.md", template_file) unless File.exists?(template_file)
 
 Dir["./**/*.md"].each do |mdfile|
   next if mdfile.include?('trash')
@@ -79,4 +84,31 @@ content.scan(/^##\s?(.*)\n/iu).flatten.each do |header|
   toc << "%s* [%s](#%s)\n" % [indent,header,anchor]
 end
 content.gsub!("<!-- toc -->", toc)
-File.open(output_file,'w').write(content)
+content.gsub!("<!-- time -->", Time.now.strftime("%F %R %Z"))
+
+if (ENV["REPO_NAME"])
+  begin
+    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md"
+    sha = YAML.load(`curl -s -X GET #{url}`)['sha']
+    res = `curl -s -X PUT #{url} \
+    -H "Authorization: token #{ENV["GITHUB_TOKEN"]}" \
+    -d @- << EOF
+    {
+      "message": "[skip ci] Compile README automatically",
+      "committer": {
+        "name": "Pandoc Book Bot",
+        "email": "ben@merovex.com"
+      },
+      "content": "#{Base64.encode64(content)}",
+      "sha": "#{sha}"
+    }`
+    puts "Success"
+    exit 0
+  rescue => error
+    puts "Error (#{error}): #{error.message}"
+    exit 1
+  end
+else
+  File.open(output_file,'w').write(content)
+end
+# puts Base64.decode64(content)
