@@ -9,12 +9,18 @@ RUN apt-get update -q \
     && apt-get install -qy \
       curl \
       ruby \
+      locales \
       git
 
 RUN rm -rf /var/lib/apt/lists/*
 RUN mkdir -p ./cache
 
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 COPY readme.rb /readme.rb
-COPY entrypoint.sh /entrypoint.sh
 COPY .README-template.md /.README-template.md
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/readme.rb"]
