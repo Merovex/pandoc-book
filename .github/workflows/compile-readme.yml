@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
       - name: Compile
         uses: docker://merovex/pandoc-book-readme:latest
         env:
