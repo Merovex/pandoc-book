@@ -197,3 +197,4 @@ My earlier forays into plaintext to Novel were in LaTeX, then a [custom-modified
 
 Copyright  © 2019-2020 Ben Wilson. All rights reserved.
 The code in this project is licensed under a BSD-4 [license](./LICENSE.md).
+
