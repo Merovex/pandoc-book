@@ -80,6 +80,7 @@ if (ENV["REPO_NAME"])
   branch = "?ref=#{ENV['BRANCH']}" if (ENV['BRANCH'])
   begin
     url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md#{branch}"
+    puts "Target: #{url}"
     sha = YAML.load(`curl -s -X GET #{url}`)['sha']
     res = `curl -s -X PUT #{url} \
     -H "Authorization: token #{ENV["GITHUB_TOKEN"]}" \
