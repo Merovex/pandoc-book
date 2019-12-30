@@ -3,38 +3,15 @@
 require 'fileutils'
 require 'yaml'
 require 'base64'
+require 'awesome_print'
 
 pattern = %r{<!-- (.*?) -->(.*?)<!-- \/\1 -->}m
 template_file = ".README-template.md"
-content = File.read(template_file)
+content = File.read(template_file).gsub(/\A---.*?---/m,'').strip
 output_file   = "./README.md"
 
-sections = {
-  "location" => {
-    :list     => [],
-    :sortby   => :name,
-    :template => "* **[%{name}](%{filename}).** %{summary}\n",
-    :header   => ""
-  },
-  "major-character" => {
-    :list     => [],
-    :sortby   => :name,
-    :template => "* **[%{name}](%{filename})** (%{season})\n%{summary}\n",
-    :header   => ""
-  },
-  "season" => {
-    :list     => [],
-    :sortby   => :order,
-    :template => "| **[%{order}](%{filename})** | %{summary} |\n",
-    :header   => "| # | Synopsis |\n| :-: | - |\n"
-  },
-  "trope" => {
-    :list     => [],
-    :sortby   => :name,
-    :template => "* **[%{name}](%{filename}).** %{summary}\n",
-    :header   => ""
-  },
-}
+sections = YAML.load_file(template_file)
+ap sections
 
 puts "Running Readme compile on (#{Dir.pwd})"
 FileUtils.cp("/.README-template.md", template_file) unless File.exists?(template_file)
@@ -55,7 +32,7 @@ Dir["./**/*.md"].each do |mdfile|
   begin
     y = YAML.load_file(mdfile)
     next if sections[y['type']].nil?
-    sections[y['type']][:list] << {
+    sections[y['type']]["list"] << {
       :name     => y['name'] ,
       :role     => y['role'],
       :order    => y['order'],
@@ -68,13 +45,15 @@ Dir["./**/*.md"].each do |mdfile|
 end
 
 sections.keys.each do |key|
-  section = sections[key][:header] || ""
-  order   = sections[key][:sortby] || :name
-  sections[key][:list].sort_by { |k| k[order] }.each do |i|
-    section << sections[key][:template] % i
+  puts "Creating '#{key}' section"
+  section = sections[key]['header'] || ""
+  order   = sections[key]['sortby'] || :name
+  sections[key]["list"].sort_by { |k| k[order] }.each do |i|
+    section << sections[key]['template'] % i
   end
   content.gsub!("<!-- #{key}-section -->", section)
 end
+puts "Creating Table of Contents"
 toc = "## Contents\n\n"
 content.scan(/^##\s?(.*)\n/iu).flatten.each do |header|
   next if header == 'Contents'
