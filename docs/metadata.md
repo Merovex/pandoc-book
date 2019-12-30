@@ -20,8 +20,8 @@ identifier: # Ebook
   -text:   isbn13:9-78098-3952-107
 
 # Production Recognition
-credits:
-  - "Cover Design: Donna Murillo"
-  - "Developmental Editor: Cara Lockwood"
-  - "Copy Editor: Cynthia Shepp"
+# credits:
+#   - "Cover Design: Donna Murillo"
+#   - "Developmental Editor: Cara Lockwood"
+#   - "Copy Editor: Cynthia Shepp"
 ---
