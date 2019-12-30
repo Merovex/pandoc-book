@@ -1,4 +1,8 @@
 #!/bin/bash
+# Make Docker
+#
+# Purpose: This is a simple Bash script that builds, tags & pushes docker containers.
+
 
 echo "Building $1"
 cd $1
