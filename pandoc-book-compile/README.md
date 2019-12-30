@@ -1,3 +1,5 @@
-docker build -t pandoc-book .
-docker tag fdb49df9901e merovex/pandoc-book:latest
-docker push merovex/pandoc-book 
+# Pandoc Book Compile
+
+<!-- pandoc-book-compile -->
+**Pandoc Book Compile** is a Docker container that auto-generates books using Pandoc and pushes them to an active release on Github.
+<!-- /pandoc-book-compile -->
