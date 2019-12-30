@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
-
 require 'fileutils'
 require 'yaml'
+require 'json'
 require 'base64'
 
 pattern = %r{<!-- (.*?) -->(.*?)<!-- \/\1 -->}m
@@ -77,25 +77,27 @@ content.gsub!("<!-- time -->", Time.now.strftime("%F %R %Z"))
 
 if (ENV["REPO_NAME"])
   branch = (ENV["BRANCH"]) ? ENV["BRANCH"] : "master"
+
   begin
-    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md"
+    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md?ref=#{branch}"
     sha = YAML.load(`curl -s -X GET #{url}`)['sha']
-    res = `curl -s -X PUT #{url}?res=#{branch} \
+
+    pkg = {
+      :message    => "[skip ci] Compile README automatically",
+      :committer  => {
+        :name  => "Pandoc Book Bot",
+        :email => "ben@merovex.com"
+      },
+      :branch     => "#{branch}",
+      :content    => "#{Base64.encode64(content)}",
+      :sha        => "#{sha}"
+    }.to_json
+    res = `curl -s -X PUT #{url} \
     -H "Authorization: token #{ENV["GITHUB_TOKEN"]}" \
     -d @- << EOF
-    {
-      "message": "[skip ci] Compile README automatically",
-      "committer": {
-        "name": "Pandoc Book Bot",
-        "email": "ben@merovex.com"
-      },
-      "branch": "#{branch}"
-      "content": "#{Base64.encode64(content)}",
-      "sha": "#{sha}"
-    }`
-    puts res
-    puts "Success"
-    exit 0
+    #{pkg}`
+    puts "Done"
+    exit (res['documentation_url'].nil?) ? 0 : 1
   rescue => error
     puts "Error (#{error}): #{error.message}"
     exit 1
@@ -103,4 +105,3 @@ if (ENV["REPO_NAME"])
 else
   File.open(output_file,'w').write(content)
 end
-# puts Base64.decode64(content)
