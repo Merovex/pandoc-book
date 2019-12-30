@@ -7,7 +7,7 @@ require 'base64'
 pattern = %r{<!-- (.*?) -->(.*?)<!-- \/\1 -->}m
 template_file = ".README-template.md"
 content = File.read(template_file)
-output_file   = "README.md"
+output_file   = "./README.md"
 
 sections = {
   "location" => {
@@ -45,7 +45,7 @@ Dir["./**/*.md"].each do |mdfile|
   next if mdfile.include?(template_file)
   # Grab major content sections
   if File.read(mdfile).match(pattern)
-
+    puts "Found #{$1} (#{File.basename(mdfile)})"
     s = "<!-- #{$1} -->\n#{$2.strip}\n[Read more](#{mdfile})\n<!-- /#{$1} -->"
     content.gsub!("<!-- #{$1} -->", s)
     next
@@ -75,7 +75,7 @@ sections.keys.each do |key|
   end
   content.gsub!("<!-- #{key}-section -->", section)
 end
-toc = ""
+toc = "## Contents\n\n"
 content.scan(/^##\s?(.*)\n/iu).flatten.each do |header|
   next if header == 'Contents'
   indent = ""
