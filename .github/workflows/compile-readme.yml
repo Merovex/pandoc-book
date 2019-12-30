@@ -16,4 +16,4 @@ jobs:
         uses: docker://merovex/pandoc-book-readme:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO_NAME: Merovex/pandoc-book
+          REPO_NAME: Merovex/verkilo-pandoc-book
