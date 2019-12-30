@@ -95,6 +95,7 @@ if (ENV["REPO_NAME"])
       "sha": "#{sha}"
     }`
     puts "Success"
+    puts res
     exit 0
   rescue => error
     puts "Error (#{error}): #{error.message}"
