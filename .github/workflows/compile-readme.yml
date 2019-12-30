@@ -1,0 +1,19 @@
+# Name: Maintain Version (Tagging)
+#
+# Description: This Github Action runs monthly to ensure there is a git tag associated
+# with the version methodology (vYY.MM) where YY is the last two digits of the year
+# and MM is the two-digit month.
+# =================================================
+on: [push]
+name: Compile Readme (push)
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Compile
+        uses: docker://merovex/pandoc-book-readme:latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: Merovex/stranded-series
