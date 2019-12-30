@@ -3,7 +3,6 @@
 require 'fileutils'
 require 'yaml'
 require 'base64'
-require 'awesome_print'
 
 pattern = %r{<!-- (.*?) -->(.*?)<!-- \/\1 -->}m
 template_file = ".README-template.md"
