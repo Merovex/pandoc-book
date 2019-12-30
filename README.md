@@ -11,6 +11,19 @@
 A brief description of your project, what it is used for and how does life get
 awesome when someone starts to use it.
 
+## Contents
+
+* [Use Cases](#use-cases)
+* [Installing / Getting Started](#installing-getting-started)
+* [Pandoc Bots (Docker Containers)](#pandoc-bots-docker-containers)
+* [Configuration](#configuration)
+  * [Trim Sizes](#trim-sizes)
+* [Contributing](#contributing)
+* [Links](#links)
+* [Acknowledgements](#acknowledgements)
+* [Licensing](#licensing)
+
+
 ## Use Cases
 
 * Author of fiction
@@ -33,6 +46,18 @@ Commands you can execute:
 Pandoc Novel uses the [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) for the version added in the metadata and the filename. This is useful to keep track of different versions of the same work (i.e., different drafts; releases to editors, beta readers, etc. )
 
 * `git tag -a v1.4 -m "my version 1.4"`
+
+## Pandoc Bots (Docker Containers)
+
+<!-- pandoc-book-compile -->
+**Pandoc Book Compile** is a Docker container that auto-generates books using Pandoc and pushes them to an active release on Github.
+[Read more](./pandoc-book-compile/README.md)
+<!-- /pandoc-book-compile -->
+
+<!-- pandoc-book-readme -->
+**Pandoc Book Readme** is a Docker container that auto-generates a compound README from Markdown files within the repository. It looks for all content between two comment tags, then inserts them in a README based on a template.
+[Read more](./pandoc-book-readme/README.md)
+<!-- /pandoc-book-readme -->
 
 ## Configuration
 
@@ -99,4 +124,4 @@ My earlier forays into plaintext to Novel were in LaTeX, then a [custom-modified
 
 ## Licensing
 
-The code in this project is licensed under a BSD-3 [license](/LICENSE.md).
+The code in this project is licensed under a BSD-4 [license](./LICENSE.md).
