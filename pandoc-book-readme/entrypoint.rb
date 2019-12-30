@@ -76,14 +76,11 @@ content.gsub!("<!-- toc -->", toc)
 content.gsub!("<!-- time -->", Time.now.strftime("%F %R %Z"))
 
 if (ENV["REPO_NAME"])
-  branch = ""
-  branch = "?ref=#{ENV['BRANCH']}" if (ENV['BRANCH'])
+  branch = (ENV["BRANCH"]) ? ENV["BRANCH"] : "master"
   begin
-    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md#{branch}"
-
+    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md"
     sha = YAML.load(`curl -s -X GET #{url}`)['sha']
-    puts "Target: #{url} (#{sha})"
-    res = `curl -s -X PUT #{url} \
+    res = `curl -s -X PUT #{url}?res=#{branch} \
     -H "Authorization: token #{ENV["GITHUB_TOKEN"]}" \
     -d @- << EOF
     {
@@ -92,12 +89,13 @@ if (ENV["REPO_NAME"])
         "name": "Pandoc Book Bot",
         "email": "ben@merovex.com"
       },
+      "branch": "#{branch}"
       "content": "#{Base64.encode64(content)}",
       "sha": "#{sha}"
     }`
-    puts "Success"
     puts res
-    exit 1
+    puts "Success"
+    exit 0
   rescue => error
     puts "Error (#{error}): #{error.message}"
     exit 1
