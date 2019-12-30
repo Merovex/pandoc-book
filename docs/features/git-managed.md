@@ -1,7 +1,7 @@
 ---
 name: Git-Managed Content on Github
 type: feature
-summary: Keep your content in Github, the world's leading software development platform along with 100 million other projects.
+summary: Enjoy the traceability, features and confidence provided by git & Github, along with 100 million other projects. 
 ---
 
 **Git-Managed Content on Github.**
