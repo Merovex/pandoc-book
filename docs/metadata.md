@@ -1,9 +1,9 @@
 ---
-title: "Pandoc Book Manual"
-subtitle: "The how-to on continuously delivered books."
+title: "Verkilo (Pandoc Book) Manual"
+subtitle: "The how-to on continuously delivered books"
 
 # Copyright Information
-rights: Copyright © 2019 Ben Wilson
+rights: Copyright © 2019-20 Ben Wilson
 trimsize: Textbook
 # crop: true
 toc: true
