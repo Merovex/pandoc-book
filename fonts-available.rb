@@ -3,7 +3,7 @@
 
 fonts =<<HERE
 <!-- fonts-available -->
-#### Fonts Available
+**Fonts Available.** The fonts available for use are listed below.
 
 #{Dir["pandoc-book-compile/fonts/*"].map { |f| "* #{File.basename(f).gsub('_', " ")}" }.join("\n")}
 
