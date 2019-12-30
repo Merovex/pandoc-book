@@ -10,8 +10,12 @@ template_file = ".README-template.md"
 content = File.read(template_file).gsub(/\A---.*?---/m,'').strip
 output_file   = "./README.md"
 
-sections = YAML.load_file(template_file)
-ap sections
+begin
+  sections = YAML.load_file(template_file)
+rescue
+  puts "... Template File lacks Frontmatter. Fix this."
+  exit 1
+end
 
 puts "Running Readme compile on (#{Dir.pwd})"
 FileUtils.cp("/.README-template.md", template_file) unless File.exists?(template_file)
@@ -32,6 +36,7 @@ Dir["./**/*.md"].each do |mdfile|
   begin
     y = YAML.load_file(mdfile)
     next if sections[y['type']].nil?
+    sections[y['type']]["list"] = [] if sections[y['type']]["list"].nil?
     sections[y['type']]["list"] << {
       :name     => y['name'] ,
       :role     => y['role'],
@@ -40,19 +45,25 @@ Dir["./**/*.md"].each do |mdfile|
       :summary  => y['summary'],
       :filename => mdfile,
     } if y.is_a? Hash
-  rescue Exception
+  rescue
   end
 end
 
-sections.keys.each do |key|
-  puts "Creating '#{key}' section"
-  section = sections[key]['header'] || ""
-  order   = sections[key]['sortby'] || :name
-  sections[key]["list"].sort_by { |k| k[order] }.each do |i|
-    section << sections[key]['template'] % i
+begin
+  sections.keys.each do |key|
+    puts "Creating '#{key}' section"
+    section = sections[key]['header'] || ""
+    order   = sections[key]['sortby'] || :name
+    sections[key]["list"].sort_by { |k| k[order] }.each do |i|
+      section << sections[key]['template'] % i
+    end
+    content.gsub!("<!-- #{key}-section -->", section)
   end
-  content.gsub!("<!-- #{key}-section -->", section)
+rescue
+  puts "... Template File does not have sections. You might want to fix that."
 end
+
+
 puts "Creating Table of Contents"
 toc = "## Contents\n\n"
 content.scan(/^##\s?(.*)\n/iu).flatten.each do |header|
