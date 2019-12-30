@@ -5,7 +5,6 @@
 # and MM is the two-digit month.
 # =================================================
 on: [push]
-name: Compile Readme (push)
 jobs:
   build:
     runs-on: ubuntu-latest
