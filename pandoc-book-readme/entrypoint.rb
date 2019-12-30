@@ -77,7 +77,7 @@ content.gsub!("<!-- time -->", Time.now.strftime("%F %R %Z"))
 
 if (ENV["REPO_NAME"])
   begin
-    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md"
+    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md?ref=develop"
     sha = YAML.load(`curl -s -X GET #{url}`)['sha']
     res = `curl -s -X PUT #{url} \
     -H "Authorization: token #{ENV["GITHUB_TOKEN"]}" \
