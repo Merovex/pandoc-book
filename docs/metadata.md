@@ -1,9 +1,9 @@
 ---
-title: "Pandoc Book Manual"
-subtitle: "The how-to on continuously delivered books."
+title: "Verkilo (Pandoc Book) Manual"
+subtitle: "The how-to on continuously delivered books"
 
 # Copyright Information
-rights: Copyright © 2019 Ben Wilson
+rights: Copyright © 2019-20 Ben Wilson
 trimsize: Textbook
 # crop: true
 toc: true
@@ -20,8 +20,8 @@ identifier: # Ebook
   -text:   isbn13:9-78098-3952-107
 
 # Production Recognition
-credits:
-  - "Cover Design: Donna Murillo"
-  - "Developmental Editor: Cara Lockwood"
-  - "Copy Editor: Cynthia Shepp"
+# credits:
+#   - "Cover Design: Donna Murillo"
+#   - "Developmental Editor: Cara Lockwood"
+#   - "Copy Editor: Cynthia Shepp"
 ---
