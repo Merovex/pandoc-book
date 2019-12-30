@@ -1,10 +1,12 @@
 # Contributor Covenant Code of Conduct
 
+Bottom line, don't be a jerk.
+
 ## Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
 contributors and maintainers pledge to making participation in our project and
-our community a harassment-free experience for everyone, regardless of 
+our community a harassment-free experience for everyone, regardless of
 religion, age ethicity, race, sex, or national origin.
 
 ## Our Standards

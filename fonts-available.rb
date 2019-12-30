@@ -3,7 +3,7 @@
 
 fonts =<<HERE
 <!-- fonts-available -->
-**Fonts Available.** The fonts available for use are listed below.
+**Fonts Available.** The fonts available for use are listed below. Submit an [issue](https://github.com/Merovex/verkilo-pandoc-book/issues) if you would like other fonts added.
 
 #{Dir["pandoc-book-compile/fonts/*"].map { |f| "* #{File.basename(f).gsub('_', " ")}" }.join("\n")}
 
