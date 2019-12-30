@@ -4,7 +4,8 @@ type: feature
 summary: Write in Markdown, a lightweight markup language, which lets you focus on your prose with minor styling. It is portable, platform-independent, future-proof, and used everywhere.
 ---
 
-**Write in Markdown.**
+### Write in Markdown
+
 Write your content in Markdown, which lets you focus on your prose with minor styling. Created by John Gruber in 2004, Markdown is now one of the world’s most popular markup languages.
 It's the native markup language for Github, which lets you preview your content in Github effortlessly. Why Markdown?
 
