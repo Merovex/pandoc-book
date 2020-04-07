@@ -9,7 +9,7 @@ def epub_image(images_dir, action)
   raise "Epub Cover Missing (#{fname})" if (action == 'epub' and !File.exist?(fname))
   return fname
 end
-def makeProductionFile(action, target, source_files)
+def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
   images_dir      = "./#{target}/images/"
   templates_dir   = "/usr/local/share/templates/"
   version         = `git describe --abbrev=0 --tags` || 'none'
@@ -21,21 +21,24 @@ def makeProductionFile(action, target, source_files)
     --metadata=version:#{version} \
     --metadata-file=metadata.yml
   HEREDOC
-
   build_flags[:epub] = <<-HEREDOC
     --css=#{templates_dir}style.css \
     --epub-cover-image=#{epub_image(images_dir, action)} \
     --template=#{templates_dir}epub.html \
     --webtex
   HEREDOC
-
   build_flags[:html] = <<-HEREDOC
     --css=#{templates_dir}style.css \
     --self-contained \
     --standalone --to=html5 \
     --webtex
   HEREDOC
-
+  build_flags[:tex] = <<-HEREDOC
+    --pdf-engine=xelatex \
+    --template=#{templates_dir}pdf.tex \
+    -V documentclass=book \
+    --webtex
+  HEREDOC
   build_flags[:pdf] = <<-HEREDOC
     --pdf-engine=xelatex \
     --template=#{templates_dir}pdf.tex \
@@ -47,23 +50,27 @@ def makeProductionFile(action, target, source_files)
     --reference-doc=#{templates_dir}reference.docx
   HEREDOC
 
+  bibliography = (!bib_file.nil?) ? " --bibliography #{bib_file} " : ""
+  bibliography += (!csl_file.nil?) ? " --csl #{csl_file} " : ""
   basename = @github_repository || File.basename(Dir.pwd)
   book_basename   = File.basename(target)
   basename        = "#{basename}-#{book_basename}-#{Date.today.strftime("%F") }"
   output_filename = "build/#{basename}.#{action}"
   puts "... creating #{output_filename}"
-  args            = build_flags[:all] + build_flags[action.to_sym] + "-o #{output_filename}"
+  args            = build_flags[:all] + build_flags[action.to_sym] + bibliography + "-o #{output_filename}"
   cmd             = "pandoc #{args.gsub(/\s+/, " ")} #{source_files}"
 
   FileUtils.mkdir_p("build/")
-  # puts cmd
   puts `#{cmd}`
+  return output_filename
 end
 
 Dir["**/.book"].each do |target|
   target = File.dirname(target)
   source_files = Dir["./#{target}/**/*.md"].sort.join(" ")
-  ['html','epub','docx','pdf'].each do |action|
-    makeProductionFile(action, target, source_files)
+  bib_file = Dir["./#{target}/**/*.bib"].first || nil
+  csl_file = Dir["./#{target}/**/*.csl"].first || nil
+  ['tex','html','epub','docx','pdf'].each do |action|
+    makeProductionFile(action, target, source_files,bib_file,csl_file)
   end
 end

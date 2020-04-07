@@ -25,6 +25,8 @@ RUN apt-get update -q \
       texlive-latex-base \
       texlive-latex-recommended \
       texlive-luatex \
+      texlive-bibtex-extra \
+      biber \
       texlive-xetex
       # texlive-fonts-extra \
       # texlive-fonts-recommended

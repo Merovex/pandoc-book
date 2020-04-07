@@ -39,6 +39,9 @@ awesome when someone starts to use it.
 * **[Automated Book Formatting](./docs/00-Introduction/03-features/automated-book-formatting.md).** Cycle your long-form narrative work product (um, book) faster and simplify your writing workflow that continuously delivers production-ready books.
 * **[Git-Managed Content on Github](./docs/00-Introduction/03-features/git-managed.md).** Enjoy the traceability, features and confidence provided by git & Github, along with 100 million other projects.
 * **[Write in Markdown](./docs/00-Introduction/03-features/markdown.md).** Write in Markdown, a lightweight markup language, which lets you focus on your prose with minor styling. It is portable, platform-independent, future-proof, and used everywhere.
+* Scene Report
+* Character Report
+* Editing (pulled from DOC?) - http://criticmarkup.com/users-guide.php
 
 
 ## Installing / Getting Started
