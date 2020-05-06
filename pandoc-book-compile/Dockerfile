@@ -27,8 +27,8 @@ RUN apt-get update -q \
       texlive-luatex \
       texlive-bibtex-extra \
       biber \
-      texlive-xetex
-      # texlive-fonts-extra \
+      texlive-xetex \
+      texlive-fonts-extra
       # texlive-fonts-recommended
 
 RUN rm -rf /var/lib/apt/lists/*
@@ -49,13 +49,6 @@ RUN fc-cache -fv
 # Install Verkilo
 ADD pandoc-book.rb /usr/local/bin/
 
-# Create Entrypoint for Github Actions
-# COPY entrypoint.sh /entrypoint.sh
-# COPY upload-to-release.sh /usr/local/bin/upload-to-release.sh
-# RUN chmod 755 /entrypoint.sh
-# RUN chmod 755 /usr/local/bin/upload-to-release.sh
-# ENTRYPOINT ["/entrypoint.sh"]
-
 run mkdir -p /usr/local/share/templates
 ADD templates /usr/local/share/templates
 
@@ -72,3 +65,10 @@ RUN cd /tmp \
   && tar -xvzf ghr.tgz \
   && mv ghr_v${GHR_VERSION}_linux_amd64/ghr /usr/local/bin
 RUN rm -rf /tmp/*
+
+# Create Entrypoint for Github Actions
+COPY entrypoint.sh /entrypoint.sh
+# COPY upload-to-release.sh /usr/local/bin/upload-to-release.sh
+RUN chmod 755 /entrypoint.sh
+# RUN chmod 755 /usr/local/bin/upload-to-release.sh
+ENTRYPOINT ["/entrypoint.sh"]
