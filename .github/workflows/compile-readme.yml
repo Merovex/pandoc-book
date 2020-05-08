@@ -16,4 +16,3 @@ jobs:
         uses: docker://merovex/pandoc-book-readme:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # BRANCH: readme
