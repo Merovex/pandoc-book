@@ -75,11 +75,11 @@ end
 content.gsub!("<!-- toc -->", toc)
 content.gsub!("<!-- time -->", Time.now.strftime("%F %R %Z"))
 
-if (ENV["REPO_NAME"])
+if (ENV["GITHUB_REPOSITORY"])
   branch = (ENV["BRANCH"]) ? ENV["BRANCH"] : "master"
 
   begin
-    url = "https://api.github.com/repos/#{ENV["REPO_NAME"]}/contents/README.md?ref=#{branch}"
+    url = "https://api.github.com/repos/#{ENV["GITHUB_REPOSITORY"]}/contents/README.md?ref=#{branch}"
     sha = YAML.load(`curl -s -X GET #{url}`)['sha']
 
     pkg = {
