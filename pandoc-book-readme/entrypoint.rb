@@ -5,7 +5,7 @@ require 'json'
 require 'base64'
 
 pattern = %r{<!-- (.*?) -->(.*?)<!-- \/\1 -->}m
-template_file = ".README-template.md"
+template_file = "./verkilo/templates/README.md"
 content = File.read(template_file).gsub(/\A---.*?---/m,'').strip
 output_file   = "./README.md"
 
