@@ -46,15 +46,20 @@ RUN mkdir -p ./cache
 ADD fonts/* /usr/share/fonts/
 RUN fc-cache -fv
 
-# Install Verkilo
-ADD pandoc-book.rb /usr/local/bin/
+# Install Scripts
+ADD ./scripts/pandoc-book.rb /usr/local/bin/
+ADD ./scripts/upload-build.sh /usr/local/bin/
+ADD ./scripts/fetch-pandoc.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/*.*
+COPY ./scripts/entrypoint.sh /entrypoint.sh
 
-run mkdir -p /usr/local/share/templates
+# Install Templates
+RUN mkdir -p /usr/local/share/templates
 ADD templates /usr/local/share/templates
 
 # Install PANDOC
-ARG PANDOC_VERSION=2.6
-ADD fetch-pandoc.sh /usr/local/bin/
+ARG PANDOC_VERSION=2.9.2.1
+
 RUN fetch-pandoc.sh ${PANDOC_VERSION} ./cache/pandoc.deb && \
     dpkg --install ./cache/pandoc.deb && \
     rm -f ./cache/pandoc.deb
@@ -67,8 +72,5 @@ RUN cd /tmp \
 RUN rm -rf /tmp/*
 
 # Create Entrypoint for Github Actions
-COPY entrypoint.sh /entrypoint.sh
-# COPY upload-to-release.sh /usr/local/bin/upload-to-release.sh
 RUN chmod 755 /entrypoint.sh
-# RUN chmod 755 /usr/local/bin/upload-to-release.sh
 ENTRYPOINT ["/entrypoint.sh"]

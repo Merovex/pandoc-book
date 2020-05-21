@@ -2,7 +2,7 @@
 require 'fileutils'
 require 'date'
 
-@github_repository = ARGV.shift
+@github_repository = File.basename(ARGV.shift)
 
 def epub_image(images_dir, action)
   fname = "#{images_dir}epub-cover.png"
@@ -42,13 +42,13 @@ def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
   build_flags[:tex] = <<-HEREDOC
     --pdf-engine=xelatex \
     --template=#{templates_dir}pdf.tex \
-    -V documentclass=book \
+    -V documentclass=memoir \
     --webtex
   HEREDOC
   build_flags[:pdf] = <<-HEREDOC
     --pdf-engine=xelatex \
     --template=#{templates_dir}pdf.tex \
-    -V documentclass=book \
+    -V documentclass=memoir \
     --webtex
   HEREDOC
   build_flags[:md] = <<-HEREDOC
@@ -65,11 +65,11 @@ def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
   args            = build_flags[:all] + build_flags[action.to_sym] + bibliography + "-o #{output_filename}"
   cmd             = "pandoc #{args.gsub(/\s+/, " ")} #{source_files}"
 
-  FileUtils.mkdir_p("build/")
   puts `#{cmd}`
   return output_filename
 end
 
+FileUtils.mkdir_p("build/")
 Dir["**/.book"].each do |target|
   target = File.dirname(target)
   source_files = Dir["./#{target}/**/*.md"].sort
