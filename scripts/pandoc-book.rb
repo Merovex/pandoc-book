@@ -2,7 +2,7 @@
 require 'fileutils'
 require 'date'
 
-@github_repository = File.basename(ARGV.shift)
+@github_repository = File.basename(ARGV.shift || "none")
 
 def epub_image(images_dir, action)
   fname = "#{images_dir}epub-cover.png"
@@ -25,7 +25,7 @@ def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
   build_flags[:all] = <<-HEREDOC
     --lua-filter #{templates_dir}latex.lua \
     --metadata=version:#{version} \
-    --metadata-file=.verkilo/metadata.yml
+    --metadata-file=.verkilo/defaults.yml
   HEREDOC
   build_flags[:epub] = <<-HEREDOC
     --css=#{templates_dir}style.css \
@@ -42,13 +42,13 @@ def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
   build_flags[:tex] = <<-HEREDOC
     --pdf-engine=xelatex \
     --template=#{templates_dir}pdf.tex \
-    -V documentclass=memoir \
+    -V documentclass=book \
     --webtex
   HEREDOC
   build_flags[:pdf] = <<-HEREDOC
     --pdf-engine=xelatex \
     --template=#{templates_dir}pdf.tex \
-    -V documentclass=memoir \
+    -V documentclass=book \
     --webtex
   HEREDOC
   build_flags[:md] = <<-HEREDOC
@@ -80,7 +80,9 @@ Dir["**/.book"].each do |target|
   File.open(raw,'w').write(text)
   bib_file = Dir["./#{target}/**/*.bib"].first || nil
   csl_file = Dir["./#{target}/**/*.csl"].first || nil
-  ['md','tex','html','epub','docx','pdf'].each do |action|
+  # ['md','tex','html','epub','docx','pdf'].each do |action|
+  ['tex','pdf'].each do |action|
     makeProductionFile(action, target, source_files.join(" ") ,bib_file,csl_file)
   end
+  exit
 end
