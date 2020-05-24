@@ -72,17 +72,24 @@ end
 FileUtils.mkdir_p("build/")
 Dir["**/.book"].each do |target|
   target = File.dirname(target)
-  source_files = Dir["./#{target}/**/*.md"].sort
-  text = source_files.map do |f|
+  text = Dir["./#{target}/**/*.md"].sort.map do |f|
     File.open(f,'r').read
   end.join("\n")
-  raw = getBuildFilename(target, "raw.md")
-  File.open(raw,'w').write(text)
+
+  # One file to work from for consistency & debugging
+  source_file = getBuildFilename(target, "compiled.md")
+  f = File.open(source_file,'w')
+  f.write(text)
+  f.close()
   bib_file = Dir["./#{target}/**/*.bib"].first || nil
   csl_file = Dir["./#{target}/**/*.csl"].first || nil
-  # ['md','tex','html','epub','docx','pdf'].each do |action|
-  ['tex','pdf'].each do |action|
-    makeProductionFile(action, target, source_files.join(" ") ,bib_file,csl_file)
+  # Build physical book
+  %w(tex pdf).each do |action|
+    makeProductionFile(action, target, source_file, bib_file,csl_file)
   end
-  exit
+  # Build ebook
+  %w(docx html epub).each do |action|
+    makeProductionFile(action, target, source_file, bib_file,csl_file)
+  end unless @github_repository == 'none'
+  exit if @github_repository == 'none'
 end
