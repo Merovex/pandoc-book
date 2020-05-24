@@ -68,9 +68,54 @@ $endif$
 $if(beamerarticle)$
 \usepackage{beamerarticle} % needs to be loaded first
 $endif$
+% $if(fontfamily)$
+% \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+% $else$
+% % \usepackage{lmodern}
+% \usepackage{fontspec}
+% \usepackage{xunicode}
+% \usepackage{xltxtra}
+% \defaultfontfeatures{Mapping=tex-text}
+%
+% % \usepackage{cabin}
+% % \usepackage{librecaslon}
+% % \setmainfont{Libre Caslon Text}
+% % \setsansfont{Droid Sans}
+% % \setmonofont{Droid Sans Mono}
+% % % \setsansfont{cabin}
+% $endif$
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
 
+$if(seriffont)$
+  \setmainfont{$seriffont$}
+$else$
+  \setmainfont{Libre Baskerville}
+$endif$
+$if(sansfont)$
+  \setsansfont{$sansfont$}
+$else$
+  \setsansfont{Libre Franklin}
+$endif$
+$if(monofont)$
+  \setmonofont{$monofont$}
+$else$
+  \setmonofont{Inconsolata}
+$endif$
 \usepackage{sectsty}
 \allsectionsfont{\sffamily}
+
+% Dates
+%-------
+\usepackage{datetime}
+\newdateformat{yearonly}{\THEYEAR}
+\newdateformat{usmonthyear}{\monthname[\THEMONTH], \THEYEAR}
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
 
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -407,18 +452,18 @@ $endfor$
   \setcounter{page}{1}
 % ===============================================
 % Old Beamer frontmatter
-$if(title)$
-  $if(beamer)$
-    \frame{\titlepage}
-    $else$
-    % \maketitle
-  $endif$
-  $if(abstract)$
-    \begin{abstract}
-  $abstract$
-    \end{abstract}
-  $endif$
-$endif$
+% $if(title)$
+%   $if(beamer)$
+%     \frame{\titlepage}
+%     $else$
+%     % \maketitle
+%   $endif$
+%   $if(abstract)$
+%     \begin{abstract}
+%   $abstract$
+%     \end{abstract}
+%   $endif$
+% $endif$
 
 % ===============================================
 % Frontmatter

@@ -1,0 +1,200 @@
+
+$if(bleed)$
+\newcommand{\AFourSize}{
+  paperwidth=210mm,
+  paperheight=297mm,
+  margin=2cm,
+  twoside
+}
+\newcommand{\Letter}{
+  paperwidth=8.625in,
+  paperheight=11.25in,
+  margin=1.0in,
+  twoside
+}
+\newcommand{\LargeTrade}{
+  paperwidth=8.125in,
+  paperheight=10.25in,
+  outer=20mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\Textbook}{
+  paperwidth=7.125in,
+  paperheight=10.25in,
+  outer=20mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\Trade}{
+  paperwidth=6.125in,
+  paperheight=9.25in,
+  outer=20mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\Digest}{
+  paperwidth=5.625in,
+  paperheight=8.75in,
+  outer=20mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\SmallTrade}{
+  paperwidth=5.375in,
+  paperheight=8.25in,
+  outer=16mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\Novella}{
+  paperwidth=5.125in,
+  paperheight=8.25in,
+  outer=16mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\UKAFormat}{
+  paperwidth=114mm,
+  paperheight=184mm,
+  outer=20mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\UKBFormat}{
+  paperwidth=132mm,
+  paperheight=204mm,
+  outer=20mm,
+  bottom=20mm,
+  top=23mm,
+  inner=2cm,
+  twoside
+}
+$else$
+\newcommand{\AFourSize}{
+  paperwidth=21.00cm,
+  paperheight=29.70cm,
+  margin=20mm,
+  twoside
+}
+\newcommand{\Letter}{
+  paperwidth=21.59cm,
+  paperheight=27.94cm,
+  margin=25mm,
+  twoside
+} % 8.5x11"
+\newcommand{\LargeTrade}{
+  paperwidth=20.32cm,
+  paperheight=25.40cm,
+  outer=17mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+} % 8x10"
+\newcommand{\Textbook}{
+  paperwidth=17.78cm,
+  paperheight=25.40cm,
+  outer=17mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+} % 7x10"
+\newcommand{\Trade}{
+  paperwidth=15.24cm,
+  paperheight=22.86cm,
+  outer=17mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+} % 6x9"
+\newcommand{\Digest}{
+  paperwidth=13.97cm,
+  paperheight=21.59cm,
+  outer=17mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+} % 5.50x8.5"
+\newcommand{\SmallTrade}{
+  paperwidth=13.34cm,
+  paperheight=20.32cm,
+  outer=13mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+} % 5.25x8"
+\newcommand{\Novella}{
+  paperwidth=12.70cm,
+  paperheight=20.32cm,
+  outer=13mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+} % 5x8"
+\newcommand{\UKBFormat}{
+  paperwidth=12.90cm,
+  paperheight=19.80cm,
+  outer=17mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+}
+\newcommand{\UKAFormat}{
+  paperwidth=11.10cm,
+  paperheight=17.80cm,
+  outer=17mm,
+  bottom=17mm,
+  top=2cm,
+  inner=2cm,
+  twoside
+}
+$endif$
+
+\newcommand{\AFourSizeLinespace}{ 1.4}
+\newcommand{\LetterLinespace}{    1.4} % 11"
+\newcommand{\LargeTradeLinespace}{1.4} % 10"
+\newcommand{\TextbookLinespace}{  1.4} % 10"
+\newcommand{\TradeLinespace}{     1.2} % 9"
+\newcommand{\DigestLinespace}{    1.1}
+\newcommand{\SmallTradeLinespace}{1.1}
+\newcommand{\NovellaLinespace}{   1.1}
+\newcommand{\UKBFormatLinespace}{ 1.1}
+\newcommand{\UKAFormatLinespace}{ 1.1}
+
+$if(trimsize)$
+\usepackage[\$trimsize$]{geometry}
+$else$
+\usackage[\Trade]{geometry}
+$endif$
+
+$if(crop)$
+\usepackage[letter,frame,center]{crop}
+$endif$
+
+\usepackage{setspace}
+$if(linestretch)$
+\setstretch{$linestretch$}
+$else$
+\setstretch{\$trimsize$Linespace}
+$endif$
