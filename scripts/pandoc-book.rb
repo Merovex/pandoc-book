@@ -51,8 +51,9 @@ def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
   @build_flags[:tex] = <<-HEREDOC
     --pdf-engine=xelatex \
     --template=#{@templates_dir}pdf.tex \
-    -V documentclass=memoir \
+    -V documentclass=book \
     -V has-frontmatter=true \
+    -V indent=true \
     -B build/frontmatter.tex \
     --webtex
   HEREDOC
@@ -102,6 +103,6 @@ Dir["**/.book"].each do |target|
   # Build ebook
   %w(docx html epub).each do |action|
     makeProductionFile(action, target, source_file, bib_file,csl_file)
-  end unless @github_repository == 'none'
+  end unless @github_repository == 'xnone'
   exit if @github_repository == 'none'
 end

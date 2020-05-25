@@ -1,61 +1,5 @@
 % ===============================================
 % Frontmatter
-  \pagenumbering{roman}
-  % % ------------------------------------------------
-  % % r.1 - Half-Title - Recto
-  % \thispagestyle{empty}
-  % \begin{center}
-  %   \vspace*{\fill}
-  %   {\LARGE \textbf{$title$}}
-  %   \vspace*{\fill}
-  %   \vspace*{\fill}
-  % \end{center}
-  % \clearpage
-  %
-  % % ------------------------------------------------
-  % % r.2 - Series Title Page - Verso
-  % \newpage
-  % \thispagestyle{empty}
-  % \emph{ }\newline
-  % $if(other-titles)$
-  %   \begin{center}
-  %     \textbf{Also by $author$}
-  %
-  %     $for(other-titles)$
-  %     $other-titles$\newline
-  %     $endfor$
-  %   \end{center}
-  % $endif$
-  % \clearpage
-  %
-  % % ------------------------------------------------
-  % % r.3 Titlepage - Recto
-  % \thispagestyle{empty}
-  % \begin{center}
-  %   \sffamily
-  %   \vspace*{\fill}
-  %   {\Huge \scshape\textbf{$title$}}
-  %
-  %   $if(subtitle)$
-  %   \vspace*{3mm}
-  %   {\Large\itshape $subtitle$}
-  %   $endif$
-  %
-  %   \vspace*{7mm}
-  %   \line(1,0){150}
-  %   \vspace*{7mm}
-  %
-  %   {\large $author$}
-  %
-  %   \vspace*{\fill}
-  %   \vspace*{\fill}
-  %   $if(imprint)$
-  %   \includegraphics[width=26mm]{$imprint$}\\[0cm]
-  %   \vspace*{7mm}
-  %   $endif$
-  % \end{center}
-  % \clearpage
-
   % ------------------------------------------------
   % r.4 Copyright Page
   \thispagestyle{empty}
@@ -101,7 +45,7 @@
   $endif$
   \vspace*{\fill}
   \clearpage\normalsize
-
+  \pagenumbering{roman}
   % -----------------------------------------------
   % r.5 - Dedication
   $if(thanks)$

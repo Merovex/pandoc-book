@@ -92,13 +92,14 @@ $endif$
 $if(fontfamily)$
 \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $else$
-\usepackage{lmodern}
+% \usepackage{lmodern} % Remove or XeLaTeX will crap on 
 $endif$
 $if(linestretch)$
 \usepackage{setspace}
 $endif$
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
   \usepackage[utf8]{inputenc}
@@ -113,8 +114,9 @@ $if(mathspec)$
 $else$
   \usepackage{unicode-math}
 $endif$
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  % \defaultfontfeatures{Scale=MatchLowercase}
+  % \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 $if(mainfont)$
   \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $endif$
@@ -457,7 +459,7 @@ $endif$
 % \setstretch{$linestretch$}
 % $endif$
 $if(has-frontmatter)$
-\pagestyle{myheadings} % Add this in
+\pagestyle{fancy} % Add this in
 \mainmatter
 $endif$
 $body$
