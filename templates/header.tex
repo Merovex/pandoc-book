@@ -36,14 +36,12 @@
 \newcommand{\NovellaLinespace}{   1.1}
 \newcommand{\UKBFormatLinespace}{ 1.1}
 \newcommand{\UKAFormatLinespace}{ 1.1}
-% \makeevenhead{myheadings}{\thepage}{\footnotesize\MakeUppercase\theauthor}{}
-% \makeoddhead{myheadings}{}{\footnotesize\MakeUppercase\thetitle}{\thepage}
 
 % ==========
 % Paper & Trim Size, and Lineheight
 $if(trimsize)$
 \usepackage[\$trimsize$$if(bleed)$Bleed$endif$]{geometry}
-\linespread{\$trimsize$Linespace}
+% \linespread{\$trimsize$Linespace}
 $else$
 \usepackage[\Trade]{geometry}
 \linespread{\TradeLinespace}
@@ -114,110 +112,6 @@ $endif$
   \newpage
 \endgroup
 }
-% ===============================================
-% Bringing PlainFancyBreak from Memoir class.
-\makeatletter
-\newcommand{\plainfancybreak}{\@ifstar{\@spfbreak}{\@pfbreak}}
-\newcommand{\@pfbreak}[3]{\par
-  \@tempdimc\pagegoal \advance\@tempdimc-\pagetotal
-  \ifdim #1>\@tempdimc \@fbreak{#3}\else \@pbreak{#2}\fi}
-\newcommand{\@spfbreak}[3]{\par
-  \@tempdimc\pagegoal \advance\@tempdimc-\pagetotal
-  \ifdim #1>\@tempdimc \@sfbreak{#3}\else \@spbreak{#2}\fi}
 
-\newcommand*{\pen@ltyabovepfbreak}{2}
-\newcommand*{\pen@ltybelowpfbreak}{-4}
-
-\newlength{\pfbreakskip}
-  \setlength{\pfbreakskip}{2\baselineskip}
-  $if(fancybreak)$
-    \newcommand{\pfbreakdisplay}{$fancybreak$}
-  $else$
-    \newcommand{\pfbreakdisplay}{* \quad * \quad*}
-  $endif$
-
-\def\pfbre@kdispl@y{\vbox to 1\pfbreakskip{\vss
-  \hb@xt@ \columnwidth{\hss \pfbreakdisplay \hss}%
-  \vss}}
-
-\edef\nopfbreakOutput{\the\output}
-\def\pfbreakOutput{%
-  \ifnum\outputpenalty=\pen@ltyabovepfbreak
-    \nopfbreakOutput
-    \pfbre@kdispl@y
-    \nobreak
-    \vskip-\pfbreakskip
-  \else\ifnum\outputpenalty=\pen@ltybelowpfbreak
-    \unvbox 255\relax
-    \nobreak
-    \vskip-\pfbreakskip
-    \pfbre@kdispl@y
-    \break
-  \else
-    \nopfbreakOutput
-  \fi
-  \fi}
-\output={\pfbreakOutput}
-
-\newcommand{\pfbreak}{\@ifstar{\@spfbreakgap}{\@pfbreakgap}}
-\newcommand{\@pfbreakgap}{%
-  \par {%
-  \skip@\lastskip
-  \nobreak
-  \vskip -\ifdim\prevdepth>\maxdepth \maxdepth
-          \else\ifdim\prevdepth>-1000pt\prevdepth
-            \else\ifinner 0pt
-              \else \pagedepth
-          \fi \fi \fi
-  \vskip -\skip@
-  \ifdim\skip@<\pfbreakskip
-    \advance\skip@ -1\skip@ \advance\skip@ 1\pfbreakskip
-  \fi
-  \penalty\pen@ltyabovepfbreak
-  \vskip\skip@
-  \penalty\pen@ltybelowpfbreak
-  }
-  \@afterindentfalse
-  \@afterheading
-}
-\newcommand{\@spfbreakgap}{%
-  \par {%
-  \skip@\lastskip
-  \nobreak
-  \vskip -\ifdim\prevdepth>\maxdepth \maxdepth
-          \else\ifdim\prevdepth>-1000pt\prevdepth
-            \else\ifinner 0pt
-              \else \pagedepth
-          \fi \fi \fi
-  \vskip -\skip@
-  \ifdim\skip@<\pfbreakskip
-    \advance\skip@ -1\skip@ \advance\skip@ 1\pfbreakskip
-  \fi
-  \penalty\pen@ltyabovepfbreak
-  \vskip\skip@
-  \penalty\pen@ltybelowpfbreak
-  }
-  \@afterindenttrue
-  \@afterheading
-}
-\makeatother
-% /PlainFancyBreak
-
-% Page Headers
-
-\usepackage{fancyhdr} % headers
-\pagestyle{fancy} % style for headers
-\headheight 0.25in % height of header
-\headsep 0.25in % dist between top of text and bottom of header
-\parskip 0in
-\parindent 0.25in % = 6.35mm
-\newcommand{\str}{\rule{0pt}{16pt}} % strut used in toc
-%%% header stuff
-\newcommand{\currpage}{\thepage} % use in headers
-\fancyhead{} % clear header fields, required
-\fancyfoot{} % clear footer fields, required
-% \fancyfoot[C]{\currpage}
-\fancyhead[LE,RO]{\currpage}
-\fancyhead[CO]{ \MakeUppercase{$title$}  } % Odd Page, Right side
-\fancyhead[CE]{ \MakeUppercase{$author$} } % Even Page, Right side
-\renewcommand\headrulewidth{0pt} % for no rule line under header
+\makeevenhead{myheadings}{\thepage}{\footnotesize\MakeUppercase\theauthor}{}
+\makeoddhead{myheadings}{}{\footnotesize\MakeUppercase\thetitle}{\thepage}

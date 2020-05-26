@@ -39,9 +39,9 @@ wordcount = {
     words = words + n
   end
 }
-function Pandoc(el)
-  -- skip metadata, just count body:
-  pandoc.walk_block(pandoc.Div(el.blocks), wordcount)
-  print(words .. " words in body")
-  -- os.exit(0)
-end
+-- function Pandoc(el)
+--   -- skip metadata, just count body:
+--   pandoc.walk_block(pandoc.Div(el.blocks), wordcount)
+--   print(words .. " words in body")
+--   -- os.exit(0)
+-- end

@@ -92,7 +92,7 @@ $endif$
 $if(fontfamily)$
 \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $else$
-% \usepackage{lmodern} % Remove or XeLaTeX will crap on 
+% \usepackage{lmodern} % Remove or XeLaTeX will crap on
 $endif$
 $if(linestretch)$
 \usepackage{setspace}
@@ -241,7 +241,125 @@ $endif$
 % $endif$
 % $endif$
 % ==========
-\input{build/header}
+% \input{build/header}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+% Bleeds are 6mm taller, 3mm wider
+\newcommand{\AFourSizeBleed} {paperwidth=213.2mm,paperheight=303.4mm,margin=20mm,twoside}
+\newcommand{\LetterBleed}    {paperwidth=219.2mm,paperheight=285.4mm,margin=25mm,twoside}
+\newcommand{\LargeTradeBleed}{paperwidth=206.2mm,paperheight=260.4mm,outer=20mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\TextbookBleed}  {paperwidth=181.2mm,paperheight=260.4mm,outer=20mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\TradeBleed}     {paperwidth=155.2mm,paperheight=235.4mm,outer=20mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\DigestBleed}    {paperwidth=143.2mm,paperheight=222.4mm,outer=20mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\SmallTradeBleed}{paperwidth=137.2mm,paperheight=209.4mm,outer=16mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\NovellaBleed}   {paperwidth=130.2mm,paperheight=209.4mm,outer=16mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\UKAFormatBleed} {paperwidth=114.2mm,paperheight=184.4mm,outer=20mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+\newcommand{\UKBFormatBleed} {paperwidth=132.2mm,paperheight=204.4mm,outer=20mm,bottom=20mm,top=23mm,inner=2cm,twoside}
+
+\newcommand{\AFourSize}      {paperwidth=210mm,paperheight=297mm,margin=20mm,twoside}
+\newcommand{\Letter}         {paperwidth=216mm,paperheight=279mm,margin=25mm,twoside}%8.5x11"
+\newcommand{\LargeTrade}     {paperwidth=203mm,paperheight=254mm,outer=17mm,bottom=17mm,top=2cm,inner=2cm,twoside}%8x10"
+\newcommand{\Textbook}       {paperwidth=178mm,paperheight=254mm,outer=17mm,bottom=17mm,top=2cm,inner=2cm,twoside}%7x10"
+\newcommand{\Trade}          {paperwidth=152mm,paperheight=229mm,outer=17mm,bottom=17mm,top=2cm,inner=2cm,twoside}%6x9"
+\newcommand{\Digest}         {paperwidth=140mm,paperheight=216mm,outer=17mm,bottom=17mm,top=2cm,inner=2cm,twoside}%5.50x8.5"
+\newcommand{\SmallTrade}     {paperwidth=133mm,paperheight=203mm,outer=13mm,bottom=17mm,top=2cm,inner=2cm,twoside}%5.25x8"
+\newcommand{\Novella}        {paperwidth=127mm,paperheight=203mm,outer=13mm,bottom=17mm,top=2cm,inner=2cm,twoside}%5x8"
+\newcommand{\UKAFormat}      {paperwidth=111mm,paperheight=178mm,outer=17mm,bottom=17mm,top=2cm,inner=2cm,twoside}
+\newcommand{\UKBFormat}      {paperwidth=129mm,paperheight=198mm,outer=17mm,bottom=17mm,top=2cm,inner=2cm,twoside}
+
+\newcommand{\AFourSizeLinespace}{ 1.4}
+\newcommand{\LetterLinespace}{    1.4} % 11"
+\newcommand{\LargeTradeLinespace}{1.4} % 10"
+\newcommand{\TextbookLinespace}{  1.4} % 10"
+\newcommand{\TradeLinespace}{     1.2} % 9"
+\newcommand{\DigestLinespace}{    1.1}
+\newcommand{\SmallTradeLinespace}{1.1}
+\newcommand{\NovellaLinespace}{   1.1}
+\newcommand{\UKBFormatLinespace}{ 1.1}
+\newcommand{\UKAFormatLinespace}{ 1.1}
+
+% ==========
+% Paper & Trim Size, and Lineheight
+$if(trimsize)$
+\usepackage[\$trimsize$$if(bleed)$Bleed$endif$]{geometry}
+% \linespread{\$trimsize$Linespace}
+$else$
+\usepackage[\Trade]{geometry}
+\linespread{\TradeLinespace}
+$endif$
+\usepackage{adforn}
+\usepackage{pifont}
+% $if(fancybreak)$
+% \renewcommand{\pfbreakdisplay}{$fancybreak$}
+% \renewcommand*{\fancybreak}{\pfbreakdisplay}
+% $endif$
+
+\newlength\drop
+\renewcommand*{\maketitle}{
+\thispagestyle{empty}
+\begingroup
+  \setlength\drop{0.2\textheight}
+  % ------------------------------------------------
+  % r.1 - Half-Title - Recto
+  \thispagestyle{empty}
+  \begin{center}
+    \vspace*{\drop}
+    {\LARGE \textbf{$title$}}
+  \end{center}
+  \clearpage
+
+  % ------------------------------------------------
+  % r.2 - Series Title Page - Verso
+  \newpage
+  \thispagestyle{empty}
+  \emph{ }\newline
+  $if(other-titles)$
+    \begin{center}
+      \textbf{Also by $author$}
+
+      $for(other-titles)$
+      $other-titles$\newline
+      $endfor$
+    \end{center}
+  $endif$
+  \clearpage
+
+  % ------------------------------------------------
+  % r.3 Titlepage - Recto
+  \thispagestyle{empty}
+  \begin{center}
+    \vspace*{\drop}
+    {\Huge \textsf{$title$}}
+
+    $if(subtitle)$
+    \vspace*{3mm}
+    {\Large\itshape $subtitle$}
+    $endif$
+
+    \vspace*{7mm}
+    \line(1,0){150}
+    \vspace*{7mm}
+
+    {\large $author$}
+
+    \vspace*{2\drop}
+    $if(imprint)$
+    \includegraphics[width=26mm]{$imprint$}\\[0cm]
+    \vspace*{7mm}
+    $endif$
+  \end{center}
+  \clearpage
+  \thispagestyle{empty}
+  \newpage
+\endgroup
+}
+
+\makeevenhead{myheadings}{\thepage}{\footnotesize\MakeUppercase\theauthor}{}
+\makeoddhead{myheadings}{}{\footnotesize\MakeUppercase\thetitle}{\thepage}
+
 % \input{build/title}
 
 $if(beamer)$
@@ -459,7 +577,7 @@ $endif$
 % \setstretch{$linestretch$}
 % $endif$
 $if(has-frontmatter)$
-\pagestyle{fancy} % Add this in
+\pagestyle{myheadings} % Add this in
 \mainmatter
 $endif$
 $body$
