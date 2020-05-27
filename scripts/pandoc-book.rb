@@ -81,7 +81,6 @@ def pandoc(src, dst, *flags)
   puts "Build #{dst}"
   cmd = "pandoc -o #{dst} #{flags.join(" ").gsub(/\s+/," ").strip} #{src}"
   puts `#{cmd}`
-  puts "- Done #{dst}"
 end
 
 FileUtils.mkdir_p("build/")
@@ -105,11 +104,13 @@ Dir["**/.book"].each do |target|
   %w(frontmatter).each {|type|
     pandoc(src, "build/#{File.basename(target)}-#{type}.tex", flags(target, type))
   }
-  %w(yaml tex pdf docx html epub docbook).each do |action|
-    fork do
+  %w(tex pdf).each do |action|
+  # %w(yaml tex pdf docx html epub docbook).each do |action|
+    # fork do
       pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
-    end
+    # end
   end
+  exit
 end
 Process.waitall
 

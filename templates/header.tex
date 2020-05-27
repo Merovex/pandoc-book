@@ -71,14 +71,18 @@ $endif$
   % r.2 - Series Title Page - Verso
   \newpage
   \thispagestyle{empty}
-  \emph{ }\newline
+  \newline
+
+
   $if(other-titles)$
     \begin{center}
       \textbf{Also by $author$}
 
-      $for(other-titles)$
-      $other-titles$\newline
-      $endfor$
+      ${for(other-titles)}
+        ${it.name}\newline
+
+      ${endfor}
+
     \end{center}
   $endif$
   \clearpage
