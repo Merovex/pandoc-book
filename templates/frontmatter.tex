@@ -1,0 +1,54 @@
+% ===============================================
+% Frontmatter
+  % ------------------------------------------------
+  % r.4 Copyright Page
+  \thispagestyle{empty}
+  \vspace*{\fill}
+
+  \par\noindent\emph{$title$}\newline
+  \par\noindent\emph{$rights$}\newline
+
+  \footnotesize
+  $if(reservation)$\par\noindent $reservation$\newline$endif$
+
+  $for(isbn)$
+    \par\noindent ISBN $isbn$
+  $endfor$\newline
+
+  \footnotesize
+  $if(disclaimer)$\par\noindent $disclaimer$\newline$endif$
+
+  % Producer Acknowledgements
+  \par\noindent Interior Design: Merovex Press % Per license terms for use of template.
+  $for(credits)$
+    \par\noindent $credits$
+  $endfor$\newline
+
+  \par\noindent $for(author)$
+      \par\noindent $author$
+    $endfor$\newline
+
+  $if(website)$
+    \par\noindent Visit us at \url{$website$}\newline
+  $endif$
+
+  \par\noindent $country$
+  \newline
+
+  $if(printing)$
+    \par\noindent\textit{$printing$}
+    \newline
+  $endif$
+
+  $if(version)$
+  \par\noindent Version: $version$
+  $endif$
+  \vspace*{\fill}
+  \clearpage\normalsize
+  \pagenumbering{roman}
+  % -----------------------------------------------
+  % r.5 - Dedication
+  $if(thanks)$
+    $thanks$
+    \newpage
+  $endif$

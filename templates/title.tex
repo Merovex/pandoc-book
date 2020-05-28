@@ -1,0 +1,59 @@
+% \newlength\drop
+% \renewcommand*{\maketitle}{
+% \thispagestyle{empty}
+% \begingroup
+%   \setlength\drop{0.2\textheight}
+%   % ------------------------------------------------
+%   % r.1 - Half-Title - Recto
+%   \thispagestyle{empty}
+%   \begin{center}
+%     \vspace*{\drop}
+%     {\LARGE \textbf{$title$}}
+%   \end{center}
+%   \clearpage
+%
+%   % ------------------------------------------------
+%   % r.2 - Series Title Page - Verso
+%   \newpage
+%   \thispagestyle{empty}
+%   \emph{ }\newline
+%   $if(other-titles)$
+%     \begin{center}
+%       \textbf{Also by $author$}
+%
+%       $for(other-titles)$
+%       $other-titles$\newline
+%       $endfor$
+%     \end{center}
+%   $endif$
+%   \clearpage
+%
+%   % ------------------------------------------------
+%   % r.3 Titlepage - Recto
+%   \thispagestyle{empty}
+%   \begin{center}
+%     \vspace*{\drop}
+%     {\Huge \textsf{$title$}}
+%
+%     $if(subtitle)$
+%     \vspace*{3mm}
+%     {\Large\itshape $subtitle$}
+%     $endif$
+%
+%     \vspace*{7mm}
+%     \line(1,0){150}
+%     \vspace*{7mm}
+%
+%     {\large $author$}
+%
+%     \vspace*{2\drop}
+%     $if(imprint)$
+%     \includegraphics[width=26mm]{$imprint$}\\[0cm]
+%     \vspace*{7mm}
+%     $endif$
+%   \end{center}
+%   \clearpage
+%   \thispagestyle{empty}
+%   \newpage
+% \endgroup
+% }

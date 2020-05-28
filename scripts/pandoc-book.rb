@@ -2,94 +2,117 @@
 require 'fileutils'
 require 'date'
 
-@github_repository = File.basename(ARGV.shift || "none")
+@starting = Time.now
+@github_repository = ARGV.shift
+@templates_dir   = "/usr/local/share/templates/"
 
-def epub_image(images_dir, action)
-  fname = "#{images_dir}epub-cover.png"
-  raise "Epub Cover Missing (#{fname})" if (action == 'epub' and !File.exist?(fname))
+@version         = `git describe --abbrev=0 --tags` || 'none'
+@version.strip!
+@version = 'none' if @version.empty?
+
+def epub_image(target)
+  fname = "covers/#{File.basename(target)}-epub.png"
+  raise "Epub Cover Missing (#{fname})" unless File.exist?(fname)
   return fname
 end
-def getBuildFilename(target, action)
-  basename = @github_repository || File.basename(Dir.pwd)
-  book_basename   = File.basename(target)
-  basename        = "#{basename}-#{book_basename}-#{Date.today.strftime("%F") }"
-  output_filename = "build/#{basename}.#{action}"
+def getBuildFilename(src, ext)
+  dst = [
+    File.basename((@github_repository.nil?) ? Dir.pwd : @github_repository),
+    File.basename(src),
+    @starting.strftime("%F")
+  ].join('-') + ".#{ext}"
+  File.join(["build", dst])
 end
-def makeProductionFile(action, target, source_files,bib_file=nil,csl_file=nil)
-  images_dir      = "./#{target}/images/"
-  templates_dir   = "/usr/local/share/templates/"
-  version         = `git describe --abbrev=0 --tags` || 'none'
-  version.strip!
+def flags(target, action=nil)
+  f = %Q(
+    --lua-filter #{@templates_dir}latex.lua \
+    --metadata=version:#{@version} \
+    --metadata-file=.verkilo/defaults.yml \
+    --fail-if-warnings
+  ) + case action
+    when 'docx'
+      %Q(
+        --reference-doc=#{@templates_dir}reference.docx
+      )
+    when 'epub'
+      %Q(
+        --css=#{@templates_dir}style.css \
+        --epub-cover-image=#{epub_image(target)} \
+        --template=#{@templates_dir}epub.html \
+        --webtex
+      )
+    when 'html'
+      %Q(
+        --css=#{@templates_dir}style.css \
+        --self-contained \
+        --standalone --to=html5 \
+        --html-q-tags
+        --webtex
+      )
+    when 'tex', 'pdf'
+      %Q(
+        -B build/#{File.basename(target)}-frontmatter.tex \
+        --pdf-engine=xelatex \
+        --template=#{@templates_dir}pdf.tex \
+        -V documentclass=memoir \
+        -V has-frontmatter=true \
+        -V indent=true \
+        --webtex
+      )
+    when 'docbook'
+      %Q(-t docbook)
+    when 'yaml'
+      %Q(
+        -t markdown \
+        --template=#{@templates_dir}yaml.md
+      )
+    when 'frontmatter'
+      %Q(
+        --pdf-engine=xelatex
+        --template=#{@templates_dir}#{action}.tex
+      )
+    else
+      ""
+  end
+  f.strip.gsub(/\s+/, " ")
+end
 
-  build_flags       = { }
-  build_flags[:all] = <<-HEREDOC
-    --lua-filter #{templates_dir}latex.lua \
-    --metadata=version:#{version} \
-    --metadata-file=.verkilo/defaults.yml
-  HEREDOC
-  build_flags[:epub] = <<-HEREDOC
-    --css=#{templates_dir}style.css \
-    --epub-cover-image=#{epub_image(images_dir, action)} \
-    --template=#{templates_dir}epub.html \
-    --webtex
-  HEREDOC
-  build_flags[:html] = <<-HEREDOC
-    --css=#{templates_dir}style.css \
-    --self-contained \
-    --standalone --to=html5 \
-    --webtex
-  HEREDOC
-  build_flags[:tex] = <<-HEREDOC
-    --pdf-engine=xelatex \
-    --template=#{templates_dir}pdf.tex \
-    -V documentclass=book \
-    --webtex
-  HEREDOC
-  build_flags[:pdf] = <<-HEREDOC
-    --pdf-engine=xelatex \
-    --template=#{templates_dir}pdf.tex \
-    -V documentclass=book \
-    --webtex
-  HEREDOC
-  build_flags[:md] = <<-HEREDOC
-  HEREDOC
-  build_flags[:docx] = <<-HEREDOC
-    --reference-doc=#{templates_dir}reference.docx
-  HEREDOC
-
-  bibliography = (!bib_file.nil?) ? " --bibliography #{bib_file} " : ""
-  bibliography += (!csl_file.nil?) ? " --csl #{csl_file} " : ""
-
-  output_filename = getBuildFilename(target, action)
-  puts "... creating #{output_filename}"
-  args            = build_flags[:all] + build_flags[action.to_sym] + bibliography + "-o #{output_filename}"
-  cmd             = "pandoc #{args.gsub(/\s+/, " ")} #{source_files}"
-
+def pandoc(src, dst, *flags)
+  puts "Build #{dst}"
+  cmd = "pandoc -o #{dst} #{flags.join(" ").gsub(/\s+/," ").strip} #{src}"
   puts `#{cmd}`
-  return output_filename
 end
 
 FileUtils.mkdir_p("build/")
 Dir["**/.book"].each do |target|
   target = File.dirname(target)
-  text = Dir["./#{target}/**/*.md"].sort.map do |f|
-    File.open(f,'r').read
-  end.join("\n")
 
-  # One file to work from for consistency & debugging
-  source_file = getBuildFilename(target, "compiled.md")
-  f = File.open(source_file,'w')
-  f.write(text)
+  # Combine into one file for consistency & debugging
+  src = getBuildFilename(target, "src.md")
+  t = Dir["./#{target}/**/*.md"].sort.map { |f| File.open(f,'r').read }.join("\n")
+  f = File.open(src,'w')
+  f.write(t)
   f.close()
-  bib_file = Dir["./#{target}/**/*.bib"].first || nil
-  csl_file = Dir["./#{target}/**/*.csl"].first || nil
-  # Build physical book
-  %w(tex pdf).each do |action|
-    makeProductionFile(action, target, source_file, bib_file,csl_file)
+
+  # Capture Bibliography and Citation format if present
+  bib = Dir["./#{target}/**/*.bib"].first || nil
+  csl = Dir["./#{target}/**/*.csl"].first || nil
+  bib = (bib.nil?) ? "" : " --bibliography #{bib}"
+  csl = (csl.nil?) ? "" : " --csl #{csl}"
+
+  # Prebuild the frontmatter for PDF
+  %w(frontmatter).each {|type|
+    pandoc(src, "build/#{File.basename(target)}-#{type}.tex", flags(target, type))
+  }
+  # %w(tex pdf).each do |action|
+  %w(yaml tex pdf docx html epub docbook).each do |action|
+    fork do
+      pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
+    end
   end
-  # Build ebook
-  %w(docx html epub).each do |action|
-    makeProductionFile(action, target, source_file, bib_file,csl_file)
-  end unless @github_repository == 'none'
-  exit if @github_repository == 'none'
+  exit
 end
+Process.waitall
+
+elapsed = Time.now - @starting
+puts "Elapsed time %3.1f" % elapsed
