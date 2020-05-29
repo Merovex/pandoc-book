@@ -1,11 +1,79 @@
 % ===============================================
 % Frontmatter
+  \newlength\drop
+  \thispagestyle{empty}
+  \begingroup
+    \setlength\drop{0.2\textheight}
+    % ------------------------------------------------
+    % r.1 - Half-Title - Recto
+    \thispagestyle{empty}
+    \begin{center}
+      \vspace*{\drop}
+      {\LARGE \textsf{\thetitle}}
+    \end{center}
+    \clearpage
+
+    % ------------------------------------------------
+    % r.2 - Series Title Page - Verso
+    \newpage
+    \thispagestyle{empty}
+
+    $if(other-titles)$
+      \begin{center}
+        \noindent{\Large Also by $author$}
+
+      $for(other-titles)$
+        \vspace{6mm}
+        \noindent{ \textbf{$other-titles.name$}}
+
+        ${if(other-titles.tag)}
+          \noindent{}${other-titles.tag}
+        ${endif}
+        \vspace{3mm}
+
+        $for(other-titles.books)$
+          \noindent{}\emph{${other-titles.books}}
+
+        $endfor$
+      $endfor$
+      \end{center}
+    $endif$
+    \clearpage
+
+    % ------------------------------------------------
+    % r.3 Titlepage - Recto
+    \thispagestyle{empty}
+    \begin{center}
+      \vspace*{\drop}
+      {\Huge \textsf{\thetitle}}
+
+      $if(subtitle)$
+      \vspace*{3mm}
+      {\LARGE\itshape $subtitle$}
+      $endif$
+
+      \vspace*{7mm}
+      \line(1,0){150}
+      \vspace*{7mm}
+
+      {\Large $author$}
+
+      \vspace*{2\drop}
+      $if(imprint)$
+      \includegraphics[width=26mm]{$imprint$}\\[0cm]
+      \vspace*{7mm}
+      $endif$
+    \end{center}
+    \clearpage
+    \thispagestyle{empty}
+    \newpage
+  \endgroup
   % ------------------------------------------------
   % r.4 Copyright Page
   \thispagestyle{empty}
   \vspace*{\fill}
 
-  \par\noindent\emph{$title$}\newline
+  \par\noindent\emph{\thetitle}\newline
   \par\noindent\emph{$rights$}\newline
 
   \footnotesize
@@ -24,8 +92,8 @@
     \par\noindent $credits$
   $endfor$\newline
 
-  \par\noindent $for(author)$
-      \par\noindent $author$
+  \par $for(author)$
+    \par\noindent $author$
     $endfor$\newline
 
   $if(website)$
