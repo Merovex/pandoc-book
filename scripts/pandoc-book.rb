@@ -2,11 +2,11 @@
 require 'fileutils'
 require 'date'
 
-@starting = Time.now
+@starting          = Time.now
 @github_repository = ARGV.shift
-@templates_dir   = "/usr/local/share/templates/"
-
-@version         = `git describe --abbrev=0 --tags` || 'none'
+@templates_dir     = "/usr/local/share/templates/"
+@tmp_dir           = "/tmp/"
+@version           = `git describe --abbrev=0 --tags` || 'none'
 @version.strip!
 @version = 'none' if @version.empty?
 
@@ -51,9 +51,9 @@ def flags(target, action=nil)
       )
     when 'tex', 'pdf'
       %Q(
-        -B build/#{File.basename(target)}-frontmatter.tex \
+        -B #{@tmp_dir}/#{File.basename(target)}-frontmatter.tex \
         --pdf-engine=xelatex \
-        --template=#{@templates_dir}pdf.tex \
+        --template=#{@templates_dir}template.tex \
         -V documentclass=memoir \
         -V has-frontmatter=true \
         -V indent=true \
@@ -102,13 +102,13 @@ Dir["**/.book"].each do |target|
 
   # Prebuild the frontmatter for PDF
   %w(frontmatter).each {|type|
-    pandoc(src, "build/#{File.basename(target)}-#{type}.tex", flags(target, type))
+    pandoc(src, "#{@tmp_dir}#{File.basename(target)}-#{type}.tex", flags(target, type))
   }
-  # %w(tex pdf).each do |action|
-  %w(yaml tex pdf docx html epub docbook).each do |action|
-    fork do
+  %w(tex pdf).each do |action|
+  # %w(yaml tex pdf docx html epub docbook).each do |action|
+    # fork do
       pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
-    end
+    # end
   end
   exit
 end
