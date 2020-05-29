@@ -243,76 +243,6 @@ $endif$
 $if(crop)$
 \usepackage[letter,frame,center]{crop}
 $endif$
-\newlength\drop
-\renewcommand*{\maketitle}{
-\thispagestyle{empty}
-\begingroup
-  \setlength\drop{0.2\textheight}
-  % ------------------------------------------------
-  % r.1 - Half-Title - Recto
-  \thispagestyle{empty}
-  \begin{center}
-    \vspace*{\drop}
-    {\LARGE \textsf{$title$}}
-  \end{center}
-  \clearpage
-
-  % ------------------------------------------------
-  % r.2 - Series Title Page - Verso
-  \newpage
-  \thispagestyle{empty}
-
-  $if(other-titles)$
-    \begin{center}
-      \noindent{\Large Also by $author$}
-
-    $for(other-titles)$
-      \vspace{6mm}
-      \noindent{ \textbf{$other-titles.name$}}
-
-      ${if(other-titles.tag)}
-        \noindent{}${other-titles.tag}
-      ${endif}
-      \vspace{3mm}
-
-      $for(other-titles.books)$
-        \noindent{}\emph{${other-titles.books}}
-
-      $endfor$
-    $endfor$
-    \end{center}
-  $endif$
-  \clearpage
-
-  % ------------------------------------------------
-  % r.3 Titlepage - Recto
-  \thispagestyle{empty}
-  \begin{center}
-    \vspace*{\drop}
-    {\Huge \textsf{$title$}}
-
-    $if(subtitle)$
-    \vspace*{3mm}
-    {\LARGE\itshape $subtitle$}
-    $endif$
-
-    \vspace*{7mm}
-    \line(1,0){150}
-    \vspace*{7mm}
-
-    {\Large $author$}
-
-    \vspace*{2\drop}
-    $if(imprint)$
-    \includegraphics[width=26mm]{$imprint$}\\[0cm]
-    \vspace*{7mm}
-    $endif$
-  \end{center}
-  \clearpage
-  \thispagestyle{empty}
-  \newpage
-\endgroup
-}
 
 $if(beamer)$
 \newif\ifbibliography
@@ -397,6 +327,7 @@ $endif$
 $if(pagestyle)$
 \pagestyle{$pagestyle$}
 $endif$
+% BOWB
 $for(header-includes)$
 $header-includes$
 $endfor$
