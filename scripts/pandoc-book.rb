@@ -104,13 +104,13 @@ Dir["**/.book"].each do |target|
   %w(frontmatter).each {|type|
     pandoc(src, "#{@tmp_dir}#{File.basename(target)}-#{type}.tex", flags(target, type))
   }
-  %w(tex pdf).each do |action|
-  # %w(yaml tex pdf docx html epub docbook).each do |action|
-    # fork do
+
+  %w(yaml tex pdf docx html epub docbook).each do |action|
+    fork do
       pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
-    # end
+    end
   end
-  exit
+
 end
 Process.waitall
 
