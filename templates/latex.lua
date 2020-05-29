@@ -71,33 +71,59 @@ wordcount = {
     char  = char + el.text:len()
   end
 }
+local function addFancyPageBreak(meta)
+  if type(meta.fancybreak) ~= 'table' then return meta end
+  local header_includes
+  local fancybreak = ""
+  for key, value in pairs(meta.fancybreak) do fancybreak = fancybreak .. value.text end
+
+  fancybreak = string.format(
+    [[\renewcommand{\pfbreakdisplay}{%s}\renewcommand*{\fancybreak}{\pfbreakdisplay}]]
+  , fancybreak)
+
+  if meta['header-includes'] and meta['header-includes'].t == 'MetaList' then
+      header_includes = meta['header-includes']
+  else
+      header_includes = pandoc.MetaList{meta['header-includes']}
+  end
+  header_includes[#header_includes + 1] =
+      pandoc.MetaBlocks{pandoc.RawBlock('latex', fancybreak)}
+  meta['header-includes'] = header_includes
+  return meta
+end
+function addTrimsizeGeometry(meta)
+  local key = pandoc.utils.stringify(meta.trimsize)
+  if trimsizes[key] == nil then
+    print("Invalid Trimsize, using 'Trade'. You used '"..key.."'.")
+    key = "Trade"
+  end
+
+  local trimsize = trimsizes[key]
+  local bindingoffset = 4 + math.floor(pages/80) -- Offset in MM by page.
+  table.insert(trimsize, bindingoffset)
+
+  meta.geometry = string.format(
+    [[
+      paperwidth=%dmm,paperheight=%dmm,
+      includeheadfoot=true,vscale=0.925,headsep=3mm,vcentering,
+      bindingoffset=%dmm,hscale=0.8,twoside]],
+    table.unpack(trimsize)
+  )
+  return meta
+end
+
 function Pandoc(doc)
   pandoc.walk_block(pandoc.Div(doc.blocks), wordcount)
+  wchar = math.ceil(char / 5) -- Using the English norm of 5 characters per word.
+  pages = math.ceil(wchar / 330) + 6
   local meta = doc.meta
-  local wchar = math.ceil(char / 5) -- Using the English norm of 5 characters per word.
+  meta.wordcount = string.format("%d",wchar)
+  meta.pagecount = string.format("%d",pages)
 
   if FORMAT == 'latex' then
-    local key = meta.trimsize[1].text
-    if trimsizes[key] == nil then
-      print("Invalid Trimsize, using 'Trade'. You used '"..key.."'.")
-      key = "Trade"
-    end
+    meta = addFancyPageBreak(meta)
+    meta = addTrimsizeGeometry(meta)
 
-    local trimsize = trimsizes[key]
-    local pages = math.ceil(wchar / 330) + 6
-    local bindingoffset = 4 + math.floor(pages/80) -- Offset in MM by page.
-    table.insert(trimsize, bindingoffset)
-
-    meta.geometry = string.format(
-      [[
-        paperwidth=%dmm,paperheight=%dmm,
-        includeheadfoot=true,vscale=0.925,headsep=3mm,vcentering,
-        bindingoffset=%dmm,hscale=0.8,twoside]],
-      table.unpack(trimsize)
-    )
-    -- print(meta.geometry)
-    meta.wordcount = string.format("%d",wchar)
-    meta.pagecount = string.format("%d",pages)
     if (meta.fontsize == nil) then meta.fontsize  = "11pt" end
     if (meta.pagestyle == nil) then meta.pagestyle  = "myheadings" end
   end
