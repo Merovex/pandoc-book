@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"$if(lang)$ xml:lang="$lang$"$endif$>
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="Verkilo (pandoc)" />
+  <meta name="generator" content="FRED Verkilo (pandoc)" />
   <title>$pagetitle$</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
@@ -29,7 +29,7 @@ $endfor$
 </head>
 <body$if(coverpage)$ id="cover"$endif$$if(body-type)$ epub:type="$body-type$"$endif$>
 $if(titlepage)$
-<section epub:type="titlepage">
+<section epub:type="titlepage" class='frontmatter'>
 $for(title)$
 $if(title.type)$
   <h1 class="$title.type$">$title.text$</h1>
@@ -52,9 +52,46 @@ $endif$
 $if(date)$
   <p class="date">$date$</p>
 $endif$
-
 $if(rights)$
   <div class="rights">$rights$</div>
+$endif$
+$if(isbn)$
+  <ul class="credits">
+  $for(isbn)$
+    <li>$isbn$</li>
+  $endfor$
+  </ul>
+$endif$
+$if(reservation)$
+  <div class="reservation">$reservation$</div>
+$endif$
+$if(disclaimer)$
+  <div class="disclaimer">$disclaimer$</div>
+$endif$
+
+<ul class='credits'>
+<li> Interior Design: Merovex Press </li>
+$for(credits)$
+  <li>$credits$</li>
+$endfor$
+</ul>
+
+$for(author)$
+  <p>
+  $author$
+  </p>
+$endfor$
+
+$if(website)$
+  <p>
+   Visit us at <a href="$website$">$website$</a>
+  </p>
+$endif$
+
+$if(country)$
+<p>
+$country$
+</p>
 $endif$
 </section>
 $else$

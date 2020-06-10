@@ -49,15 +49,19 @@ html * {
 /* = BOOKMARKS = */
 /* ============= */
 h1, h2, h3, h4, h5, h6 {
+  font-family: helvetica, arial, sans-serif;
+  break-after: avoid;
 }
 
-.frontcover h1 {  }
-.chapter h2 {  }
-.chapter h3 {  }
-.chapter h4 {  }
-.chapter h5 {  }
-.chapter h6 {  }
-
+h1 { font-size: 1.8rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.4rem; }
+h4 { font-size: 1.2rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 1rem; }
+frontmatter {
+  font-size: 0.8em;
+}
 /* ============= */
 /* = CONTAINER = */
 /* ============= */
@@ -77,7 +81,10 @@ div.container {
 div.frontcover {
 	background: #fff;
 }
-
+.subtitle {
+  font-size: 1.5rem;
+  font-style: italic;
+}
 div.frontcover div {
 	left: 1in;
 	padding-top: 0.25in;
@@ -85,7 +92,10 @@ div.frontcover div {
 	top: 2.5in;
 	width: 7.25in;
 }
-
+ul.credits {
+  list-style-type: none;
+  margin-left: 0; padding-left: 0;
+}
 div.frontcover h1 {
 	color: #f00;
 	font-size: 46pt;

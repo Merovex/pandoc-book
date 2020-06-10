@@ -24,6 +24,12 @@ def getBuildFilename(src, ext)
   File.join(["build", dst])
 end
 def flags(target, action=nil)
+  css_file = if File.exist?(".verkilo/style.css")
+    ".verkilo/style.css"
+  else
+    "#{@templates_dir}style.css"
+  end
+
   f = %Q(
     --lua-filter #{@templates_dir}latex.lua \
     --metadata=version:#{@version} \
@@ -36,22 +42,23 @@ def flags(target, action=nil)
       )
     when 'epub'
       %Q(
-        --css=#{@templates_dir}style.css \
+        --css=#{css_file} \
         --epub-cover-image=#{epub_image(target)} \
         --template=#{@templates_dir}epub.html \
         --webtex
       )
     when 'html'
       %Q(
-        --css=#{@templates_dir}style.css \
+        --css=#{css_file} \
         --self-contained \
         --standalone --to=html5 \
+        --template=#{@templates_dir}epub.html \
         --html-q-tags
         --webtex
       )
     when 'tex', 'pdf'
       %Q(
-        -B #{@tmp_dir}/#{File.basename(target)}-frontmatter.tex \
+        -B #{@tmp_dir}#{File.basename(target)}-frontmatter.tex \
         --pdf-engine=xelatex \
         --template=#{@templates_dir}template.tex \
         -V documentclass=memoir \
@@ -80,6 +87,7 @@ end
 def pandoc(src, dst, *flags)
   puts "Build #{dst}"
   cmd = "pandoc -o #{dst} #{flags.join(" ").gsub(/\s+/," ").strip} #{src}"
+  # puts cmd
   puts `#{cmd}`
 end
 
@@ -104,13 +112,17 @@ Dir["**/.book"].each do |target|
   %w(frontmatter).each {|type|
     pandoc(src, "#{@tmp_dir}#{File.basename(target)}-#{type}.tex", flags(target, type))
   }
+  %w(html epub).each do |action|
+    puts "Slow compile..."
+      pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
+    end if @github_repository.nil?
+  exit if @github_repository.nil?
 
   %w(yaml tex pdf docx html epub docbook).each do |action|
     fork do
       pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
     end
-  end
-
+  end unless @github_repository.nil?
 end
 Process.waitall
 

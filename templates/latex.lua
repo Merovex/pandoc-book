@@ -124,8 +124,9 @@ function Pandoc(doc)
     meta = addFancyPageBreak(meta)
     meta = addTrimsizeGeometry(meta)
 
-    if (meta.fontsize == nil) then meta.fontsize  = "11pt" end
+    if (meta.fontsize == nil)  then meta.fontsize  = "10pt" end
     if (meta.pagestyle == nil) then meta.pagestyle  = "myheadings" end
+    print("Words.."..wchar)
   end
   return pandoc.Pandoc(doc.blocks, meta)
 end
