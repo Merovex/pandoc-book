@@ -21,7 +21,7 @@ def getBuildFilename(src, ext)
     File.basename(src),
     @starting.strftime("%F")
   ].join('-') + ".#{ext}"
-  File.join(["build", dst])
+  File.join(["build",File.basename(src), dst])
 end
 def flags(target, action=nil)
   css_file = if File.exist?(".verkilo/style.css")
@@ -91,13 +91,16 @@ def pandoc(src, dst, *flags)
   puts `#{cmd}`
 end
 
-FileUtils.mkdir_p("build/")
+
 Dir["**/.book"].each do |target|
   target = File.dirname(target)
+  FileUtils.mkdir_p("build/#{File.basename(target)}")
 
   # Combine into one file for consistency & debugging
   src = getBuildFilename(target, "src.md")
-  t = Dir["./#{target}/**/*.md"].sort.map { |f| File.open(f,'r').read }.join("\n")
+  t = Dir["./#{target}/**/*.md"].sort.map do |f|
+    "###### #{f}\n\n#{File.open(f,'r').read}\n\n"
+  end.join()
   f = File.open(src,'w')
   f.write(t)
   f.close()
@@ -112,7 +115,7 @@ Dir["**/.book"].each do |target|
   %w(frontmatter).each {|type|
     pandoc(src, "#{@tmp_dir}#{File.basename(target)}-#{type}.tex", flags(target, type))
   }
-  %w(html epub).each do |action|
+  %w(tex pdf).each do |action|
     puts "Slow compile..."
       pandoc(src, getBuildFilename(target, action), flags(target, action), bib, csl)
     end if @github_repository.nil?

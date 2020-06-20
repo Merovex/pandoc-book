@@ -406,6 +406,8 @@ $if(logo)$
 \logo{\includegraphics{$logo$}}
 $endif$
 $endif$
+\let\originalsubparagraph\subparagraph
+\renewcommand{\subparagraph}[2][]{}
 
 \begin{document}
 $if(has-frontmatter)$
