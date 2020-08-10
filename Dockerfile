@@ -40,7 +40,7 @@ RUN fc-cache -fv
 
 # Install Gems
 RUN gem install bundler rubygems-bundler --no-document
-RUN gem install verkilo -v 0.1.4  --no-document
+RUN gem install verkilo -v 0.1.5  --no-document
 
 # Install Scripts
 ADD ./scripts/fetch-pandoc.sh /usr/local/bin/
